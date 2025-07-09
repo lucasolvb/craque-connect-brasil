@@ -6,11 +6,11 @@ import { Progress } from '@/components/ui/progress';
 import { Trophy, Star, TrendingUp } from 'lucide-react';
 
 interface PlayerScoreWidgetProps {
-  currentPoints: number;
-  currentLevel: string;
-  nextLevel: string;
-  pointsToNext: number;
-  weeklyGrowth: number;
+  currentPoints?: number;
+  currentLevel?: string;
+  nextLevel?: string;
+  pointsToNext?: number;
+  weeklyGrowth?: number;
 }
 
 const PlayerScoreWidget = ({ 
