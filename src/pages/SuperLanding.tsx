@@ -3,7 +3,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
-import { Users, Building, Briefcase, Star, MapPin, Video, Shield } from 'lucide-react';
+import { Users, Building, Briefcase, Star, MapPin, Video, Shield, Play, CheckCircle } from 'lucide-react';
 import ClubesParceiros from '@/components/ClubesParceiros';
 
 const SuperLanding = () => {
@@ -35,98 +35,165 @@ const SuperLanding = () => {
         </div>
       </header>
 
-      {/* Hero Section com Banner de crianças jogando futebol */}
-      <section className="py-20 relative overflow-hidden bg-green-600">
-        {/* Background com imagem de crianças jogando futebol */}
+      {/* Hero Section com imagem de fundo */}
+      <section className="relative py-20 overflow-hidden min-h-[600px] flex items-center">
+        {/* Background Image */}
         <div 
-          className="absolute inset-0 opacity-30 bg-cover bg-center bg-no-repeat"
+          className="absolute inset-0 bg-cover bg-center bg-no-repeat"
           style={{
-            backgroundImage: `url('https://images.unsplash.com/photo-1594736797933-d0601ba0cdde?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D')`
+            backgroundImage: `url('https://images.unsplash.com/photo-1551698618-1dfe5d97d256?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D')`
           }}
         ></div>
         
-        <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <h1 className="text-6xl font-bold text-white mb-6">
-            Super Talentos
+        {/* Overlay gradiente verde semi-transparente */}
+        <div className="absolute inset-0 bg-gradient-to-br from-green-600/80 via-green-700/70 to-green-800/80"></div>
+        
+        {/* Elementos gráficos sutis */}
+        <div className="absolute inset-0 opacity-10">
+          <div className="absolute top-20 left-10 w-32 h-32 border-2 border-white rounded-full"></div>
+          <div className="absolute bottom-20 right-10 w-24 h-24 border-2 border-white rounded-full"></div>
+          <div className="absolute top-1/2 left-1/4 w-4 h-4 bg-white rounded-full"></div>
+          <div className="absolute top-1/3 right-1/3 w-6 h-6 bg-white rounded-full"></div>
+        </div>
+        
+        <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center z-10">
+          <h1 className="text-5xl md:text-6xl font-bold text-white mb-6 leading-tight">
+            Transforme Seu Talento
+            <span className="block text-yellow-400">
+              em Oportunidade
+            </span>
           </h1>
-          <p className="text-2xl text-yellow-300 font-semibold mb-4">
-            Futebol para Todos
-          </p>
-          <p className="text-lg text-white mb-12 max-w-3xl mx-auto">
-            Sua chance de brilhar no futebol brasileiro chegou! Mostre seu talento, conecte-se com clubes e empresários, 
-            e transforme sua paixão pelo futebol em uma carreira profissional.
+          
+          <p className="text-xl text-white/90 mb-12 max-w-4xl mx-auto leading-relaxed">
+            A plataforma onde jovens talentos do futebol brasileiro são descobertos 
+            por clubes e empresários de todo o país
           </p>
           
-          <div className="flex justify-center space-x-4">
+          <div className="flex flex-col sm:flex-row gap-6 justify-center mb-16">
             <Link to="/dashboard">
-              <Button size="lg" className="bg-yellow-500 hover:bg-yellow-600 text-black font-bold px-8 py-4 text-lg">
-                Começar Minha Jornada
+              <Button 
+                size="lg" 
+                className="bg-yellow-500 hover:bg-yellow-600 text-black font-bold px-8 py-4 text-lg shadow-2xl transform hover:scale-105 transition-all duration-300"
+              >
+                <Users className="mr-3 h-6 w-6" />
+                Criar Meu Perfil de Jogador
               </Button>
             </Link>
-            <Link to="/explorar">
-              <Button size="lg" className="bg-white text-green-600 hover:bg-gray-100 px-8 py-4 border-0">
-                Ver Outros Talentos
+            <Link to="/historias">
+              <Button 
+                size="lg" 
+                variant="outline"
+                className="border-2 border-white text-white hover:bg-white hover:text-green-600 px-8 py-4 text-lg font-bold"
+              >
+                <Play className="mr-3 h-6 w-6" />
+                Ver Histórias de Sucesso
               </Button>
             </Link>
           </div>
-          
-          {/* Destaque para jogadores */}
-          <div className="mt-16 grid grid-cols-1 md:grid-cols-3 gap-8 max-w-4xl mx-auto">
-            <div className="bg-white rounded-lg p-6 shadow-lg">
-              <Video className="h-12 w-12 text-green-600 mx-auto mb-4" />
-              <h3 className="text-lg font-bold text-gray-900 mb-2">Mostre Seu Talento</h3>
-              <p className="text-gray-600">Envie vídeos dos seus melhores lances e seja visto por olheiros profissionais</p>
+
+          <div className="flex items-center justify-center space-x-8 text-white/80">
+            <div className="flex items-center space-x-2">
+              <CheckCircle className="h-5 w-5" />
+              <span>100% Gratuito</span>
             </div>
-            <div className="bg-white rounded-lg p-6 shadow-lg">
-              <Users className="h-12 w-12 text-green-600 mx-auto mb-4" />
-              <h3 className="text-lg font-bold text-gray-900 mb-2">Conecte-se com Clubes</h3>
-              <p className="text-gray-600">Acesso direto a clubes parceiros em todo o Brasil</p>
+            <div className="hidden sm:block w-px h-8 bg-white/30"></div>
+            <div className="flex items-center space-x-2">
+              <Shield className="h-5 w-5" />
+              <span>Totalmente Seguro</span>
             </div>
-            <div className="bg-white rounded-lg p-6 shadow-lg">
-              <Star className="h-12 w-12 text-green-600 mx-auto mb-4" />
-              <h3 className="text-lg font-bold text-gray-900 mb-2">Seja Descoberto</h3>
-              <p className="text-gray-600">Empresários e olheiros procuram novos talentos todos os dias</p>
+            <div className="hidden sm:block w-px h-8 bg-white/30"></div>
+            <div className="flex items-center space-x-2">
+              <Star className="h-5 w-5" />
+              <span>Milhares de Talentos</span>
             </div>
           </div>
         </div>
       </section>
 
-      {/* Clubes Parceiros */}
-      <ClubesParceiros />
+      {/* Clubes que Confiam em Nós */}
+      <section className="py-12 bg-gray-50">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <h2 className="text-3xl font-bold text-gray-900 text-center mb-8">
+            Clubes que Confiam em Nós
+          </h2>
+          <ClubesParceiros />
+        </div>
+      </section>
 
-      {/* User Types - Focado em jogadores */}
-      <section className="py-16 bg-gray-50">
+      {/* Destaque para jogadores */}
+      <section className="py-16 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-12">
-            <h2 className="text-3xl font-bold text-gray-900 mb-4">
+            <h2 className="text-4xl font-bold text-gray-900 mb-4">
               Seu Sonho no Futebol Começa Aqui
             </h2>
-            <p className="text-lg text-gray-600">
+            <p className="text-xl text-gray-600 max-w-3xl mx-auto">
               Junte-se a milhares de jogadores que já fazem parte da nossa rede
             </p>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            <Card className="text-center p-6 hover:shadow-xl transition-shadow border-0 shadow-md bg-white">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-16">
+            <Card className="text-center p-6 hover:shadow-xl transition-all duration-300 transform hover:-translate-y-2 border-0 shadow-md bg-white">
               <CardContent className="pt-6">
-                <div className="w-16 h-16 bg-green-600 rounded-full flex items-center justify-center mx-auto mb-4">
-                  <Users className="h-8 w-8 text-white" />
+                <div className="w-16 h-16 bg-green-600 rounded-full flex items-center justify-center mx-auto mb-6">
+                  <Video className="h-8 w-8 text-white" />
                 </div>
-                <h3 className="text-xl font-semibold mb-2 text-gray-900">Sou Jogador</h3>
-                <p className="text-gray-600 mb-4">
-                  Crie seu perfil, envie seus vídeos e seja descoberto por clubes e empresários
+                <h3 className="text-xl font-semibold mb-4 text-gray-900">Mostre Seu Talento</h3>
+                <p className="text-gray-600 mb-6">
+                  Envie vídeos dos seus melhores lances e seja visto por olheiros profissionais
                 </p>
-                <Link to="/dashboard">
-                  <Button className="w-full bg-green-600 hover:bg-green-700 text-white">
-                    Criar Meu Perfil
-                  </Button>
-                </Link>
+                <div className="bg-green-50 rounded-lg p-3 mb-4">
+                  <p className="text-green-800 font-medium text-sm">+100 pontos por vídeo</p>
+                </div>
               </CardContent>
             </Card>
 
+            <Card className="text-center p-6 hover:shadow-xl transition-all duration-300 transform hover:-translate-y-2 border-0 shadow-md bg-white">
+              <CardContent className="pt-6">
+                <div className="w-16 h-16 bg-green-600 rounded-full flex items-center justify-center mx-auto mb-6">
+                  <Users className="h-8 w-8 text-white" />
+                </div>
+                <h3 className="text-xl font-semibold mb-4 text-gray-900">Conecte-se com Clubes</h3>
+                <p className="text-gray-600 mb-6">
+                  Acesso direto a clubes parceiros em todo o Brasil
+                </p>
+                <div className="bg-blue-50 rounded-lg p-3 mb-4">
+                  <p className="text-blue-800 font-medium text-sm">+50 clubes parceiros</p>
+                </div>
+              </CardContent>
+            </Card>
+
+            <Card className="text-center p-6 hover:shadow-xl transition-all duration-300 transform hover:-translate-y-2 border-0 shadow-md bg-white">
+              <CardContent className="pt-6">
+                <div className="w-16 h-16 bg-green-600 rounded-full flex items-center justify-center mx-auto mb-6">
+                  <Star className="h-8 w-8 text-white" />
+                </div>
+                <h3 className="text-xl font-semibold mb-4 text-gray-900">Seja Descoberto</h3>
+                <p className="text-gray-600 mb-6">
+                  Empresários e olheiros procuram novos talentos todos os dias
+                </p>
+                <div className="bg-purple-50 rounded-lg p-3 mb-4">
+                  <p className="text-purple-800 font-medium text-sm">Rankings semanais</p>
+                </div>
+              </CardContent>
+            </Card>
+          </div>
+        </div>
+      </section>
+
+      {/* Para outros usuários */}
+      <section className="py-16 bg-gray-50">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center mb-12">
+            <h2 className="text-3xl font-bold text-gray-900 mb-4">
+              Para Profissionais do Futebol
+            </h2>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
             <Card className="text-center p-6 hover:shadow-xl transition-shadow border-0 shadow-md bg-white">
               <CardContent className="pt-6">
-                <div className="w-16 h-16 bg-green-600 rounded-full flex items-center justify-center mx-auto mb-4">
+                <div className="w-16 h-16 bg-blue-600 rounded-full flex items-center justify-center mx-auto mb-4">
                   <Building className="h-8 w-8 text-white" />
                 </div>
                 <h3 className="text-xl font-semibold mb-2 text-gray-900">Clubes & Olheiros</h3>
@@ -134,7 +201,7 @@ const SuperLanding = () => {
                   Encontre novos talentos e acompanhe jogadores promissores
                 </p>
                 <Link to="/dashboard">
-                  <Button variant="outline" className="w-full border-green-600 text-green-600 hover:bg-green-50">
+                  <Button variant="outline" className="w-full border-blue-600 text-blue-600 hover:bg-blue-50">
                     Buscar Talentos
                   </Button>
                 </Link>
@@ -143,7 +210,7 @@ const SuperLanding = () => {
 
             <Card className="text-center p-6 hover:shadow-xl transition-shadow border-0 shadow-md bg-white">
               <CardContent className="pt-6">
-                <div className="w-16 h-16 bg-green-600 rounded-full flex items-center justify-center mx-auto mb-4">
+                <div className="w-16 h-16 bg-purple-600 rounded-full flex items-center justify-center mx-auto mb-4">
                   <Briefcase className="h-8 w-8 text-white" />
                 </div>
                 <h3 className="text-xl font-semibold mb-2 text-gray-900">Empresários</h3>
@@ -151,7 +218,7 @@ const SuperLanding = () => {
                   Gerencie carreiras e descubra os próximos craques do futebol
                 </p>
                 <Link to="/dashboard">
-                  <Button variant="outline" className="w-full border-green-600 text-green-600 hover:bg-green-50">
+                  <Button variant="outline" className="w-full border-purple-600 text-purple-600 hover:bg-purple-50">
                     Gerenciar Atletas
                   </Button>
                 </Link>
@@ -161,73 +228,17 @@ const SuperLanding = () => {
         </div>
       </section>
 
-      {/* Features */}
-      <section className="py-16 bg-white">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-12">
-            <h2 className="text-3xl font-bold text-gray-900 mb-4">
-              Tudo Que Você Precisa Para Decolar
-            </h2>
-            <p className="text-lg text-gray-600">
-              Ferramentas profissionais para impulsionar sua carreira no futebol
-            </p>
-          </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-            <div className="text-center bg-white p-6 rounded-lg border border-gray-200 shadow-sm">
-              <div className="w-12 h-12 bg-green-600 rounded-lg flex items-center justify-center mx-auto mb-4">
-                <Video className="h-6 w-6 text-white" />
-              </div>
-              <h3 className="font-semibold mb-2 text-gray-900">Vídeos Profissionais</h3>
-              <p className="text-sm text-gray-600">
-                Carregue vídeos dos seus melhores momentos em campo
-              </p>
-            </div>
-
-            <div className="text-center bg-white p-6 rounded-lg border border-gray-200 shadow-sm">
-              <div className="w-12 h-12 bg-green-600 rounded-lg flex items-center justify-center mx-auto mb-4">
-                <MapPin className="h-6 w-6 text-white" />
-              </div>
-              <h3 className="font-semibold mb-2 text-gray-900">Visibilidade Nacional</h3>
-              <p className="text-sm text-gray-600">
-                Seja encontrado por clubes em todo o Brasil
-              </p>
-            </div>
-
-            <div className="text-center bg-white p-6 rounded-lg border border-gray-200 shadow-sm">
-              <div className="w-12 h-12 bg-green-600 rounded-lg flex items-center justify-center mx-auto mb-4">
-                <Star className="h-6 w-6 text-white" />
-              </div>
-              <h3 className="font-semibold mb-2 text-gray-900">Perfil Verificado</h3>
-              <p className="text-sm text-gray-600">
-                Tenha credibilidade com perfil verificado
-              </p>
-            </div>
-
-            <div className="text-center bg-white p-6 rounded-lg border border-gray-200 shadow-sm">
-              <div className="w-12 h-12 bg-green-600 rounded-lg flex items-center justify-center mx-auto mb-4">
-                <Shield className="h-6 w-6 text-white" />
-              </div>
-              <h3 className="font-semibold mb-2 text-gray-900">100% Seguro</h3>
-              <p className="text-sm text-gray-600">
-                Plataforma segura e confiável para todos
-              </p>
-            </div>
-          </div>
-        </div>
-      </section>
-
       {/* CTA Section */}
       <section className="py-16 bg-green-600">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <h2 className="text-3xl font-bold text-white mb-4">
+          <h2 className="text-4xl font-bold text-white mb-4">
             Sua Hora de Brilhar Chegou!
           </h2>
           <p className="text-xl text-white mb-8">
             Milhares de jogadores já deram o primeiro passo. E você?
           </p>
           <Link to="/dashboard">
-            <Button size="lg" className="bg-yellow-500 hover:bg-yellow-600 text-black font-bold px-8 py-4">
+            <Button size="lg" className="bg-yellow-500 hover:bg-yellow-600 text-black font-bold px-8 py-4 text-lg shadow-xl">
               Criar Meu Perfil Agora
             </Button>
           </Link>

@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import { useAuth } from '@/contexts/AuthContext';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
@@ -15,12 +14,21 @@ import {
   Bell,
   MessageSquare,
   BarChart3,
-  Upload as UploadIcon
+  Upload as UploadIcon,
+  Home,
+  Video,
+  Trophy,
+  MessageCircle
 } from 'lucide-react';
 import PlayerCard from '@/components/PlayerCard';
 import MessageChat from '@/components/MessageChat';
 import AnalyticsPanel from '@/components/AnalyticsPanel';
 import VideoUpload from '@/components/VideoUpload';
+import PlayerScoreWidget from '@/components/PlayerScoreWidget';
+import WeeklyChallenge from '@/components/WeeklyChallenge';
+import PlayerRanking from '@/components/PlayerRanking';
+import ActivityFeed from '@/components/ActivityFeed';
+import WeeklyAnalytics from '@/components/WeeklyAnalytics';
 import { mockJogadores } from '@/lib/auth';
 import { useFavorites } from '@/hooks/useFavorites';
 import { useMessages } from '@/hooks/useMessages';
@@ -37,152 +45,207 @@ const Dashboard = () => {
 
   const handleVideoUpload = (videoUrl: string, thumbnail?: string) => {
     console.log('Video uploaded:', videoUrl, thumbnail);
-    // In real app, would save to player profile
     setShowVideoUpload(false);
   };
 
   const renderJogadorDashboard = () => (
-    <Tabs value={activeTab} onValueChange={setActiveTab} className="space-y-6">
-      <TabsList className="grid w-full grid-cols-4">
-        <TabsTrigger value="overview">Visão Geral</TabsTrigger>
-        <TabsTrigger value="videos">Vídeos</TabsTrigger>
-        <TabsTrigger value="messages">
-          Mensagens
-          {unreadMessages > 0 && (
-            <Badge variant="destructive" className="ml-2 text-xs">
-              {unreadMessages}
-            </Badge>
-          )}
-        </TabsTrigger>
-        <TabsTrigger value="analytics">Analytics</TabsTrigger>
-      </TabsList>
+    <div className="space-y-6">
+      {/* Header com pontuação */}
+      <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+        <div className="lg:col-span-2">
+          <div className="mb-6">
+            <h1 className="text-3xl font-bold text-gray-900 mb-2">
+              Olá, {user?.name}! 👋
+            </h1>
+            <p className="text-gray-600">Transforme seu talento em oportunidade</p>
+          </div>
+        </div>
+        <div className="lg:col-span-1">
+          <PlayerScoreWidget 
+            currentPoints={1250}
+            currentLevel="Talento"
+            nextLevel="Craque Regional"
+            pointsToNext={750}
+            weeklyGrowth={15}
+          />
+        </div>
+      </div>
 
-      <TabsContent value="overview">
-        <div className="space-y-6">
-          {/* Stats Cards */}
-          <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
-            <Card>
-              <CardContent className="p-4">
-                <div className="flex items-center justify-between">
-                  <div>
-                    <p className="text-sm text-gray-600">Visualizações</p>
-                    <p className="text-2xl font-bold text-green-600">324</p>
+      <Tabs value={activeTab} onValueChange={setActiveTab} className="space-y-6">
+        <TabsList className="grid w-full grid-cols-5">
+          <TabsTrigger value="overview" className="flex items-center gap-2">
+            <Home className="h-4 w-4" />
+            <span className="hidden sm:inline">Dashboard</span>
+          </TabsTrigger>
+          <TabsTrigger value="videos" className="flex items-center gap-2">
+            <Video className="h-4 w-4" />
+            <span className="hidden sm:inline">Vídeos</span>
+          </TabsTrigger>
+          <TabsTrigger value="ranking" className="flex items-center gap-2">
+            <Trophy className="h-4 w-4" />
+            <span className="hidden sm:inline">Ranking</span>
+          </TabsTrigger>
+          <TabsTrigger value="messages" className="flex items-center gap-2">
+            <MessageCircle className="h-4 w-4" />
+            <span className="hidden sm:inline">Mensagens</span>
+            {unreadMessages > 0 && (
+              <Badge variant="destructive" className="text-xs">
+                {unreadMessages}
+              </Badge>
+            )}
+          </TabsTrigger>
+          <TabsTrigger value="analytics" className="flex items-center gap-2">
+            <BarChart3 className="h-4 w-4" />
+            <span className="hidden sm:inline">Analytics</span>
+          </TabsTrigger>
+        </TabsList>
+
+        <TabsContent value="overview">
+          <div className="space-y-6">
+            {/* Primeira linha - Analytics e Desafio */}
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+              <WeeklyAnalytics />
+              <WeeklyChallenge />
+            </div>
+
+            {/* Segunda linha - Ranking e Atividades */}
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+              <PlayerRanking />
+              <ActivityFeed />
+            </div>
+
+            {/* Stats Cards */}
+            <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
+              <Card className="bg-white border-0 shadow-lg">
+                <CardContent className="p-4">
+                  <div className="flex items-center justify-between">
+                    <div>
+                      <p className="text-sm text-gray-600">Visualizações</p>
+                      <p className="text-2xl font-bold text-green-600">324</p>
+                    </div>
+                    <Eye className="h-8 w-8 text-green-600" />
                   </div>
-                  <Eye className="h-8 w-8 text-green-600" />
-                </div>
-              </CardContent>
-            </Card>
-            
-            <Card>
-              <CardContent className="p-4">
-                <div className="flex items-center justify-between">
-                  <div>
-                    <p className="text-sm text-gray-600">Favoritos</p>
-                    <p className="text-2xl font-bold text-red-600">12</p>
+                </CardContent>
+              </Card>
+              
+              <Card className="bg-white border-0 shadow-lg">
+                <CardContent className="p-4">
+                  <div className="flex items-center justify-between">
+                    <div>
+                      <p className="text-sm text-gray-600">Favoritos</p>
+                      <p className="text-2xl font-bold text-red-600">12</p>
+                    </div>
+                    <Heart className="h-8 w-8 text-red-600" />
                   </div>
-                  <Heart className="h-8 w-8 text-red-600" />
-                </div>
-              </CardContent>
-            </Card>
-            
-            <Card>
-              <CardContent className="p-4">
-                <div className="flex items-center justify-between">
-                  <div>
-                    <p className="text-sm text-gray-600">Interesse</p>
-                    <p className="text-2xl font-bold text-blue-600">8</p>
+                </CardContent>
+              </Card>
+              
+              <Card className="bg-white border-0 shadow-lg">
+                <CardContent className="p-4">
+                  <div className="flex items-center justify-between">
+                    <div>
+                      <p className="text-sm text-gray-600">Interesse</p>
+                      <p className="text-2xl font-bold text-blue-600">8</p>
+                    </div>
+                    <MessageSquare className="h-8 w-8 text-blue-600" />
                   </div>
-                  <MessageSquare className="h-8 w-8 text-blue-600" />
-                </div>
-              </CardContent>
-            </Card>
-            
-            <Card>
-              <CardContent className="p-4">
-                <div className="flex items-center justify-between">
-                  <div>
-                    <p className="text-sm text-gray-600">Ranking</p>
-                    <p className="text-2xl font-bold text-purple-600">#45</p>
+                </CardContent>
+              </Card>
+              
+              <Card className="bg-white border-0 shadow-lg">
+                <CardContent className="p-4">
+                  <div className="flex items-center justify-between">
+                    <div>
+                      <p className="text-sm text-gray-600">Ranking</p>
+                      <p className="text-2xl font-bold text-purple-600">#4</p>
+                    </div>
+                    <TrendingUp className="h-8 w-8 text-purple-600" />
                   </div>
-                  <TrendingUp className="h-8 w-8 text-purple-600" />
+                </CardContent>
+              </Card>
+            </div>
+
+            {/* Quick Actions */}
+            <Card className="bg-white border-0 shadow-lg">
+              <CardHeader>
+                <CardTitle>Ações Rápidas</CardTitle>
+              </CardHeader>
+              <CardContent>
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                  <Button 
+                    className="h-auto p-4 flex flex-col items-center space-y-2 bg-green-600 hover:bg-green-700"
+                    onClick={() => setShowVideoUpload(true)}
+                  >
+                    <Plus className="h-6 w-6" />
+                    <span>Adicionar Vídeo</span>
+                  </Button>
+                  <Button 
+                    variant="outline" 
+                    className="h-auto p-4 flex flex-col items-center space-y-2 border-blue-600 text-blue-600 hover:bg-blue-50"
+                    onClick={() => setActiveTab('messages')}
+                  >
+                    <MessageSquare className="h-6 w-6" />
+                    <span>Ver Mensagens</span>
+                  </Button>
+                  <Button 
+                    variant="outline" 
+                    className="h-auto p-4 flex flex-col items-center space-y-2 border-purple-600 text-purple-600 hover:bg-purple-50"
+                    onClick={() => setActiveTab('analytics')}
+                  >
+                    <BarChart3 className="h-6 w-6" />
+                    <span>Ver Analytics</span>
+                  </Button>
                 </div>
               </CardContent>
             </Card>
           </div>
+        </TabsContent>
 
-          {/* Quick Actions */}
-          <Card>
-            <CardHeader>
-              <CardTitle>Ações Rápidas</CardTitle>
-            </CardHeader>
-            <CardContent>
-              <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-                <Button 
-                  className="h-auto p-4 flex flex-col items-center space-y-2"
-                  onClick={() => setShowVideoUpload(true)}
-                >
-                  <Plus className="h-6 w-6" />
-                  <span>Adicionar Vídeo</span>
-                </Button>
-                <Button 
-                  variant="outline" 
-                  className="h-auto p-4 flex flex-col items-center space-y-2"
-                  onClick={() => setActiveTab('messages')}
-                >
-                  <MessageSquare className="h-6 w-6" />
-                  <span>Ver Mensagens</span>
-                </Button>
-                <Button 
-                  variant="outline" 
-                  className="h-auto p-4 flex flex-col items-center space-y-2"
-                  onClick={() => setActiveTab('analytics')}
-                >
-                  <BarChart3 className="h-6 w-6" />
-                  <span>Ver Analytics</span>
-                </Button>
-              </div>
-            </CardContent>
-          </Card>
-        </div>
-      </TabsContent>
+        <TabsContent value="videos">
+          <div className="space-y-6">
+            {showVideoUpload ? (
+              <VideoUpload
+                onUpload={handleVideoUpload}
+                onRemove={() => setShowVideoUpload(false)}
+                label="Adicionar novo vídeo"
+              />
+            ) : (
+              <Card className="bg-white border-0 shadow-lg">
+                <CardHeader>
+                  <CardTitle className="flex items-center justify-between">
+                    Meus Vídeos
+                    <Button onClick={() => setShowVideoUpload(true)} className="bg-green-600 hover:bg-green-700">
+                      <Plus className="h-4 w-4 mr-2" />
+                      Adicionar Vídeo
+                    </Button>
+                  </CardTitle>
+                </CardHeader>
+                <CardContent>
+                  <p className="text-gray-600 text-center py-8">
+                    Você ainda não possui vídeos. Clique em "Adicionar Vídeo" para começar e ganhar +100 pontos!
+                  </p>
+                </CardContent>
+              </Card>
+            )}
+          </div>
+        </TabsContent>
 
-      <TabsContent value="videos">
-        <div className="space-y-6">
-          {showVideoUpload ? (
-            <VideoUpload
-              onUpload={handleVideoUpload}
-              onRemove={() => setShowVideoUpload(false)}
-              label="Adicionar novo vídeo"
-            />
-          ) : (
-            <Card>
-              <CardHeader>
-                <CardTitle className="flex items-center justify-between">
-                  Meus Vídeos
-                  <Button onClick={() => setShowVideoUpload(true)}>
-                    <Plus className="h-4 w-4 mr-2" />
-                    Adicionar Vídeo
-                  </Button>
-                </CardTitle>
-              </CardHeader>
-              <CardContent>
-                <p className="text-gray-600 text-center py-8">
-                  Você ainda não possui vídeos. Clique em "Adicionar Vídeo" para começar.
-                </p>
-              </CardContent>
-            </Card>
-          )}
-        </div>
-      </TabsContent>
+        <TabsContent value="ranking">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+            <PlayerRanking />
+            <WeeklyChallenge />
+          </div>
+        </TabsContent>
 
-      <TabsContent value="messages">
-        <MessageChat />
-      </TabsContent>
+        <TabsContent value="messages">
+          <MessageChat />
+        </TabsContent>
 
-      <TabsContent value="analytics">
-        <AnalyticsPanel />
-      </TabsContent>
-    </Tabs>
+        <TabsContent value="analytics">
+          <AnalyticsPanel />
+        </TabsContent>
+      </Tabs>
+    </div>
   );
 
   const renderClubeDashboard = () => (
@@ -325,38 +388,6 @@ const Dashboard = () => {
 
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-      {/* Header */}
-      <div className="mb-8">
-        <div className="flex items-center justify-between">
-          <div>
-            <h1 className="text-3xl font-bold text-gray-900">
-              Olá, {user?.name}! 👋
-            </h1>
-            <p className="text-gray-600 mt-1">
-              {user?.userType === 'jogador' && 'Acompanhe seu progresso e oportunidades'}
-              {user?.userType === 'clube' && 'Descubra os melhores talentos do Brasil'}
-              {user?.userType === 'empresario' && 'Gerencie seu portfólio de atletas'}
-            </p>
-          </div>
-          
-          <div className="flex items-center space-x-2">
-            <Button variant="outline" size="sm">
-              <Bell className="h-4 w-4" />
-              {unreadMessages > 0 && (
-                <Badge variant="destructive" className="ml-1 text-xs">
-                  {unreadMessages}
-                </Badge>
-              )}
-            </Button>
-            <Badge variant={user?.userType === 'jogador' ? 'default' : 'secondary'}>
-              {user?.userType === 'jogador' && 'Jogador'}
-              {user?.userType === 'clube' && 'Clube/Olheiro'}
-              {user?.userType === 'empresario' && 'Empresário'}
-            </Badge>
-          </div>
-        </div>
-      </div>
-
       {/* Dashboard Content */}
       {user?.userType === 'jogador' && renderJogadorDashboard()}
       {user?.userType === 'clube' && renderClubeDashboard()}
