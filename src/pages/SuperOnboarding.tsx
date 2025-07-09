@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
@@ -134,7 +133,7 @@ const SuperOnboarding = () => {
   const handleSubmit = async () => {
     try {
       if (selectedUserType === 'jogador') {
-        await supabase.from('player_profiles').insert({
+        const { error } = await (supabase as any).from('player_profiles').insert({
           user_id: user!.id,
           full_name: formData.full_name,
           birth_date: formData.birth_date,
@@ -152,8 +151,10 @@ const SuperOnboarding = () => {
           previous_clubs: formData.previous_clubs,
           videos: formData.videos
         });
+        
+        if (error) throw error;
       } else if (selectedUserType === 'clube') {
-        await supabase.from('club_profiles').insert({
+        const { error } = await (supabase as any).from('club_profiles').insert({
           user_id: user!.id,
           club_name: formData.club_name,
           representative_name: formData.representative_name,
@@ -164,8 +165,10 @@ const SuperOnboarding = () => {
           club_type: formData.club_type,
           description: formData.description
         });
+        
+        if (error) throw error;
       } else if (selectedUserType === 'empresario') {
-        await supabase.from('agent_profiles').insert({
+        const { error } = await (supabase as any).from('agent_profiles').insert({
           user_id: user!.id,
           agent_name: formData.full_name,
           company_name: formData.company_name,
@@ -175,6 +178,8 @@ const SuperOnboarding = () => {
           city: formData.city,
           description: formData.description
         });
+        
+        if (error) throw error;
       }
       
       toast({
@@ -184,6 +189,7 @@ const SuperOnboarding = () => {
       
       navigate('/dashboard');
     } catch (error) {
+      console.error('Error creating profile:', error);
       toast({
         title: "Erro ao criar perfil",
         description: "Tente novamente.",
