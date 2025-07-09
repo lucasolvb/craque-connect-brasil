@@ -30,11 +30,6 @@ const ClubesParceiros = () => {
       cor: '#7A2830'
     },
     { 
-      nome: 'Santos', 
-      escudo: 'https://logoeps.com/wp-content/uploads/2013/03/santos-vector-logo.png',
-      cor: '#000000'
-    },
-    { 
       nome: 'Botafogo', 
       escudo: 'https://logoeps.com/wp-content/uploads/2013/03/botafogo-vector-logo.png',
       cor: '#000000'
@@ -43,6 +38,16 @@ const ClubesParceiros = () => {
       nome: 'Vasco', 
       escudo: 'https://logoeps.com/wp-content/uploads/2013/03/vasco-da-gama-vector-logo.png',
       cor: '#000000'
+    },
+    { 
+      nome: 'Atlético-MG', 
+      escudo: 'https://logoeps.com/wp-content/uploads/2013/03/atletico-mineiro-vector-logo.png',
+      cor: '#000000'
+    },
+    { 
+      nome: 'Cruzeiro', 
+      escudo: 'https://logoeps.com/wp-content/uploads/2013/03/cruzeiro-vector-logo.png',
+      cor: '#003399'
     },
     { 
       nome: 'Grêmio', 
@@ -55,14 +60,49 @@ const ClubesParceiros = () => {
       cor: '#CC0000'
     },
     { 
-      nome: 'Atlético-MG', 
-      escudo: 'https://logoeps.com/wp-content/uploads/2013/03/atletico-mineiro-vector-logo.png',
-      cor: '#000000'
+      nome: 'Bahia', 
+      escudo: 'https://logoeps.com/wp-content/uploads/2013/03/bahia-vector-logo.png',
+      cor: '#0066CC'
     },
     { 
-      nome: 'Cruzeiro', 
-      escudo: 'https://logoeps.com/wp-content/uploads/2013/03/cruzeiro-vector-logo.png',
-      cor: '#003399'
+      nome: 'Fortaleza', 
+      escudo: 'https://logoeps.com/wp-content/uploads/2013/03/fortaleza-vector-logo.png',
+      cor: '#CC0000'
+    },
+    { 
+      nome: 'Athletico-PR', 
+      escudo: 'https://logoeps.com/wp-content/uploads/2013/03/atletico-paranaense-vector-logo.png',
+      cor: '#CC0000'
+    },
+    { 
+      nome: 'Bragantino', 
+      escudo: 'https://logoeps.com/wp-content/uploads/2013/03/bragantino-vector-logo.png',
+      cor: '#FF0000'
+    },
+    { 
+      nome: 'Cuiabá', 
+      escudo: 'https://logoeps.com/wp-content/uploads/2013/03/cuiaba-vector-logo.png',
+      cor: '#FFD700'
+    },
+    { 
+      nome: 'Vitória', 
+      escudo: 'https://logoeps.com/wp-content/uploads/2013/03/vitoria-vector-logo.png',
+      cor: '#CC0000'
+    },
+    { 
+      nome: 'Juventude', 
+      escudo: 'https://logoeps.com/wp-content/uploads/2013/03/juventude-vector-logo.png',
+      cor: '#006633'
+    },
+    { 
+      nome: 'Criciúma', 
+      escudo: 'https://logoeps.com/wp-content/uploads/2013/03/criciuma-vector-logo.png',
+      cor: '#FFD700'
+    },
+    { 
+      nome: 'Mirassol', 
+      escudo: 'https://logoeps.com/wp-content/uploads/2013/03/mirassol-vector-logo.png',
+      cor: '#FFD700'
     }
   ];
 
@@ -70,7 +110,7 @@ const ClubesParceiros = () => {
     <section className="py-8 bg-white border-t border-gray-200">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <h3 className="text-2xl font-bold text-gray-900 mb-6 text-center">
-          Clubes Parceiros
+          Clubes Parceiros - Série A 2025
         </h3>
         
         <ScrollArea className="w-full whitespace-nowrap">
@@ -83,14 +123,14 @@ const ClubesParceiros = () => {
               >
                 <div className="w-16 h-16 flex items-center justify-center">
                   <img 
-                    src={`https://cdn.jsdelivr.net/gh/transfermarkt/club-logos@main/logos/${clube.nome.toLowerCase().replace(/[^a-z0-9]/g, '')}.png`}
+                    src={clube.escudo}
                     alt={`Escudo ${clube.nome}`}
                     className="w-14 h-14 object-contain group-hover:scale-110 transition-transform"
                     loading="lazy"
                     onError={(e) => {
                       // Fallback para URLs alternativas se a primeira falhar
                       const fallbacks = [
-                        `https://logoeps.com/wp-content/uploads/2013/03/${clube.nome.toLowerCase().replace(/\s+/g, '-').replace('ã', 'a').replace('é', 'e')}-vector-logo.png`,
+                        `https://logoeps.com/wp-content/uploads/2013/03/${clube.nome.toLowerCase().replace(/\s+/g, '-').replace('ã', 'a').replace('é', 'e').replace('ú', 'u').replace('í', 'i').replace('ó', 'o')}-vector-logo.png`,
                         `https://ssl.gstatic.com/onebox/media/sports/logos/${clube.nome.toLowerCase()}_48x48.png`,
                         `data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='56' height='56' viewBox='0 0 56 56'%3E%3Ccircle cx='28' cy='28' r='26' fill='${clube.cor}' stroke='%23fff' stroke-width='4'/%3E%3Ctext x='28' y='32' text-anchor='middle' fill='white' font-family='Arial' font-size='10' font-weight='bold'%3E${clube.nome.substring(0, 3).toUpperCase()}%3C/text%3E%3C/svg%3E`
                       ];
