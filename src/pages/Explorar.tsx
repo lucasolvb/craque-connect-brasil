@@ -1,49 +1,69 @@
 
 import React, { useState } from 'react';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { Card, CardContent } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
-import { Input } from '@/components/ui/input';
-import { Label } from '@/components/ui/label';
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Badge } from '@/components/ui/badge';
-import { Search, Filter, MapPin, Calendar, Users } from 'lucide-react';
+import { Users } from 'lucide-react';
 import PlayerCard from '@/components/PlayerCard';
+import SearchFilters, { SearchFilters as FilterType } from '@/components/SearchFilters';
+import BrazilMap from '@/components/BrazilMap';
 import { mockJogadores } from '@/lib/auth';
+import { useFavorites } from '@/hooks/useFavorites';
+import { useAnalytics } from '@/hooks/useAnalytics';
 
 const Explorar = () => {
-  const [searchTerm, setSearchTerm] = useState('');
-  const [filters, setFilters] = useState({
-    posicao: '',
-    estado: '',
-    idadeMin: '',
-    idadeMax: '',
-    pernaHabil: '',
-    temEmpresario: ''
+  const [filters, setFilters] = useState<FilterType>({
+    searchTerm: '',
+    position: '',
+    state: '',
+    ageMin: '',
+    ageMax: '',
+    hasAgent: '',
+    sortBy: 'recent'
   });
-  const [showFilters, setShowFilters] = useState(false);
+  
+  const [showMap, setShowMap] = useState(false);
+  const { toggleFavorite, isFavorite } = useFavorites();
+  const { trackSearch, trackProfileView } = useAnalytics();
 
-  const posicoes = [
-    'Goleiro', 'Lateral Direito', 'Lateral Esquerdo', 'Zagueiro', 
-    'Volante', 'Meio-campo', 'Meia-atacante', 'Ponta Direita', 
-    'Ponta Esquerda', 'Atacante', 'Centro-avante'
-  ];
+  const handleSearch = () => {
+    trackSearch(filters.searchTerm, filters);
+  };
 
-  const estados = [
-    'AC', 'AL', 'AP', 'AM', 'BA', 'CE', 'DF', 'ES', 'GO', 'MA',
-    'MT', 'MS', 'MG', 'PA', 'PB', 'PR', 'PE', 'PI', 'RJ', 'RN',
-    'RS', 'RO', 'RR', 'SC', 'SP', 'SE', 'TO'
-  ];
+  const handleStateSelect = (state: string) => {
+    setFilters(prev => ({ ...prev, state }));
+    setShowMap(false);
+  };
 
   const filteredPlayers = mockJogadores.filter(player => {
-    const matchesSearch = player.nomeCompleto.toLowerCase().includes(searchTerm.toLowerCase()) ||
-                         player.posicaoPrincipal.toLowerCase().includes(searchTerm.toLowerCase()) ||
-                         player.cidade.toLowerCase().includes(searchTerm.toLowerCase());
+    const matchesSearch = !filters.searchTerm || 
+      player.nomeCompleto.toLowerCase().includes(filters.searchTerm.toLowerCase()) ||
+      player.posicaoPrincipal.toLowerCase().includes(filters.searchTerm.toLowerCase()) ||
+      player.cidade.toLowerCase().includes(filters.searchTerm.toLowerCase());
     
-    const matchesPosition = !filters.posicao || player.posicaoPrincipal === filters.posicao;
-    const matchesState = !filters.estado || player.estado === filters.estado;
-    const matchesFoot = !filters.pernaHabil || player.pernaHabil === filters.pernaHabil;
+    const matchesPosition = !filters.position || player.posicaoPrincipal === filters.position;
+    const matchesState = !filters.state || player.estado === filters.state;
     
-    return matchesSearch && matchesPosition && matchesState && matchesFoot;
+    const age = new Date().getFullYear() - new Date(player.dataNascimento).getFullYear();
+    const matchesAgeMin = !filters.ageMin || age >= parseInt(filters.ageMin);
+    const matchesAgeMax = !filters.ageMax || age <= parseInt(filters.ageMax);
+    
+    return matchesSearch && matchesPosition && matchesState && matchesAgeMin && matchesAgeMax;
+  }).sort((a, b) => {
+    switch (filters.sortBy) {
+      case 'name':
+        return a.nomeCompleto.localeCompare(b.nomeCompleto);
+      case 'age':
+        const ageA = new Date().getFullYear() - new Date(a.dataNascimento).getFullYear();
+        const ageB = new Date().getFullYear() - new Date(b.dataNascimento).getFullYear();
+        return ageA - ageB;
+      case 'views':
+        // Mock sorting by views - in real app would come from analytics
+        return Math.random() - 0.5;
+      case 'recent':
+      default:
+        return 0;
+    }
   });
 
   return (
@@ -55,102 +75,26 @@ const Explorar = () => {
       </div>
 
       {/* Search and Filters */}
-      <Card className="mb-8">
-        <CardContent className="p-6">
-          <div className="space-y-4">
-            {/* Search Bar */}
-            <div className="flex gap-4">
-              <div className="flex-1 relative">
-                <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-gray-400" />
-                <Input 
-                  placeholder="Buscar por nome, posição, cidade..."
-                  value={searchTerm}
-                  onChange={(e) => setSearchTerm(e.target.value)}
-                  className="pl-10"
-                />
-              </div>
-              <Button 
-                variant="outline" 
-                onClick={() => setShowFilters(!showFilters)}
-                className="flex items-center gap-2"
-              >
-                <Filter className="h-4 w-4" />
-                Filtros
-              </Button>
-            </div>
+      <div className="mb-8">
+        <SearchFilters
+          filters={filters}
+          onFiltersChange={setFilters}
+          onSearch={handleSearch}
+          showMap={showMap}
+          onToggleMap={() => setShowMap(!showMap)}
+        />
+      </div>
 
-            {/* Advanced Filters */}
-            {showFilters && (
-              <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-5 gap-4 pt-4 border-t">
-                <div>
-                  <Label>Posição</Label>
-                  <Select value={filters.posicao} onValueChange={(value) => setFilters(prev => ({ ...prev, posicao: value }))}>
-                    <SelectTrigger>
-                      <SelectValue placeholder="Todas" />
-                    </SelectTrigger>
-                    <SelectContent>
-                      <SelectItem value="">Todas as posições</SelectItem>
-                      {posicoes.map(pos => (
-                        <SelectItem key={pos} value={pos}>{pos}</SelectItem>
-                      ))}
-                    </SelectContent>
-                  </Select>
-                </div>
-
-                <div>
-                  <Label>Estado</Label>
-                  <Select value={filters.estado} onValueChange={(value) => setFilters(prev => ({ ...prev, estado: value }))}>
-                    <SelectTrigger>
-                      <SelectValue placeholder="Todos" />
-                    </SelectTrigger>
-                    <SelectContent>
-                      <SelectItem value="">Todos os estados</SelectItem>
-                      {estados.map(estado => (
-                        <SelectItem key={estado} value={estado}>{estado}</SelectItem>
-                      ))}
-                    </SelectContent>
-                  </Select>
-                </div>
-
-                <div>
-                  <Label>Pé hábil</Label>
-                  <Select value={filters.pernaHabil} onValueChange={(value) => setFilters(prev => ({ ...prev, pernaHabil: value }))}>
-                    <SelectTrigger>
-                      <SelectValue placeholder="Todos" />
-                    </SelectTrigger>
-                    <SelectContent>
-                      <SelectItem value="">Todos</SelectItem>
-                      <SelectItem value="destro">Destro</SelectItem>
-                      <SelectItem value="canhoto">Canhoto</SelectItem>
-                      <SelectItem value="ambos">Ambos</SelectItem>
-                    </SelectContent>
-                  </Select>
-                </div>
-
-                <div>
-                  <Label>Idade mínima</Label>
-                  <Input 
-                    type="number" 
-                    placeholder="16"
-                    value={filters.idadeMin}
-                    onChange={(e) => setFilters(prev => ({ ...prev, idadeMin: e.target.value }))}
-                  />
-                </div>
-
-                <div>
-                  <Label>Idade máxima</Label>
-                  <Input 
-                    type="number" 
-                    placeholder="35"
-                    value={filters.idadeMax}
-                    onChange={(e) => setFilters(prev => ({ ...prev, idadeMax: e.target.value }))}
-                  />
-                </div>
-              </div>
-            )}
-          </div>
-        </CardContent>
-      </Card>
+      {/* Brazil Map Modal */}
+      {showMap && (
+        <div className="fixed inset-0 bg-black bg-opacity-50 z-40">
+          <BrazilMap
+            selectedState={filters.state}
+            onStateSelect={handleStateSelect}
+            onClose={() => setShowMap(false)}
+          />
+        </div>
+      )}
 
       {/* Results Summary */}
       <div className="flex items-center justify-between mb-6">
@@ -158,27 +102,16 @@ const Explorar = () => {
           <h2 className="text-xl font-semibold">
             {filteredPlayers.length} jogadores encontrados
           </h2>
-          {searchTerm && (
+          {filters.searchTerm && (
             <Badge variant="secondary">
-              Busca: "{searchTerm}"
+              Busca: "{filters.searchTerm}"
             </Badge>
           )}
-        </div>
-        
-        <div className="flex items-center gap-2">
-          <Label htmlFor="sort" className="text-sm">Ordenar por:</Label>
-          <Select defaultValue="relevancia">
-            <SelectTrigger className="w-40">
-              <SelectValue />
-            </SelectTrigger>
-            <SelectContent>
-              <SelectItem value="relevancia">Relevância</SelectItem>
-              <SelectItem value="nome">Nome A-Z</SelectItem>
-              <SelectItem value="idade">Idade</SelectItem>
-              <SelectItem value="posicao">Posição</SelectItem>
-              <SelectItem value="localizacao">Localização</SelectItem>
-            </SelectContent>
-          </Select>
+          {filters.state && (
+            <Badge variant="secondary">
+              Estado: {filters.state}
+            </Badge>
+          )}
         </div>
       </div>
 
@@ -189,8 +122,9 @@ const Explorar = () => {
             <PlayerCard 
               key={player.id} 
               player={player}
-              onView={() => console.log('View player', player.id)}
-              onFavorite={() => console.log('Favorite player', player.id)}
+              onView={() => trackProfileView(player.id)}
+              onFavorite={() => toggleFavorite(player.id)}
+              isFavorited={isFavorite(player.id)}
             />
           ))}
         </div>
@@ -206,17 +140,15 @@ const Explorar = () => {
             </p>
             <Button 
               variant="outline" 
-              onClick={() => {
-                setSearchTerm('');
-                setFilters({
-                  posicao: '',
-                  estado: '',
-                  idadeMin: '',
-                  idadeMax: '',
-                  pernaHabil: '',
-                  temEmpresario: ''
-                });
-              }}
+              onClick={() => setFilters({
+                searchTerm: '',
+                position: '',
+                state: '',
+                ageMin: '',
+                ageMax: '',
+                hasAgent: '',
+                sortBy: 'recent'
+              })}
             >
               Limpar Filtros
             </Button>
