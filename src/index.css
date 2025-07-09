@@ -3,7 +3,7 @@
 @tailwind components;
 @tailwind utilities;
 
-/* Design system otimizado para FutTalent */
+/* Design system otimizado para FutTalent com cores da bandeira brasileira */
 @layer base {
   :root {
     --background: 0 0% 100%;
@@ -15,10 +15,10 @@
     --popover: 0 0% 100%;
     --popover-foreground: 222.2 84% 4.9%;
 
-    --primary: 142 76% 36%; /* Verde brasileiro */
+    --primary: 120 100% 25%; /* Verde bandeira brasileira */
     --primary-foreground: 0 0% 100%;
 
-    --secondary: 217 91% 40%; /* Azul moderno */
+    --secondary: 200 100% 40%; /* Azul bandeira brasileira */
     --secondary-foreground: 0 0% 100%;
 
     --muted: 210 40% 96.1%;
@@ -32,7 +32,7 @@
 
     --border: 214.3 31.8% 91.4%;
     --input: 214.3 31.8% 91.4%;
-    --ring: 142 76% 36%;
+    --ring: 120 100% 25%;
 
     --radius: 0.5rem;
   }
@@ -47,10 +47,10 @@
     --popover: 222.2 84% 4.9%;
     --popover-foreground: 210 40% 98%;
 
-    --primary: 142 76% 50%;
+    --primary: 120 100% 35%;
     --primary-foreground: 222.2 47.4% 11.2%;
 
-    --secondary: 217 91% 60%;
+    --secondary: 200 100% 50%;
     --secondary-foreground: 210 40% 98%;
 
     --muted: 217.2 32.6% 17.5%;
@@ -64,7 +64,7 @@
 
     --border: 217.2 32.6% 17.5%;
     --input: 217.2 32.6% 17.5%;
-    --ring: 142 76% 50%;
+    --ring: 120 100% 35%;
   }
 }
 
@@ -78,7 +78,7 @@
     font-feature-settings: "rlig" 1, "calt" 1;
   }
 
-  /* Scrollbar personalizada */
+  /* Scrollbar personalizada com cores brasileiras */
   ::-webkit-scrollbar {
     width: 6px;
   }
@@ -102,13 +102,13 @@
     text-wrap: balance;
   }
 
-  /* Classes para gradientes esportivos */
-  .gradient-green-blue {
-    background: linear-gradient(135deg, hsl(142, 76%, 36%) 0%, hsl(217, 91%, 40%) 100%);
+  /* Classes para gradientes esportivos com cores brasileiras */
+  .gradient-brasil {
+    background: linear-gradient(135deg, hsl(120, 100%, 25%) 0%, hsl(200, 100%, 40%) 100%);
   }
 
   .gradient-hero {
-    background: linear-gradient(135deg, hsl(142, 76%, 36%) 0%, hsl(217, 91%, 60%) 100%);
+    background: linear-gradient(135deg, hsl(120, 100%, 25%) 0%, hsl(54, 100%, 55%) 50%, hsl(200, 100%, 40%) 100%);
   }
 
   /* Classes para animações suaves */

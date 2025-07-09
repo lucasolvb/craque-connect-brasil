@@ -26,11 +26,11 @@ export default {
 				background: 'hsl(var(--background))',
 				foreground: 'hsl(var(--foreground))',
 				primary: {
-					DEFAULT: 'hsl(142, 76%, 36%)', // Verde brasileiro
+					DEFAULT: 'hsl(120, 100%, 25%)', // Verde bandeira Brasil
 					foreground: 'hsl(0, 0%, 100%)'
 				},
 				secondary: {
-					DEFAULT: 'hsl(217, 91%, 60%)', // Azul moderno
+					DEFAULT: 'hsl(200, 100%, 40%)', // Azul Brasil
 					foreground: 'hsl(0, 0%, 100%)'
 				},
 				destructive: {
@@ -53,30 +53,42 @@ export default {
 					DEFAULT: 'hsl(0, 0%, 100%)',
 					foreground: 'hsl(222.2, 84%, 4.9%)'
 				},
-				// Cores específicas do FutTalent
+				// Cores específicas da bandeira brasileira
 				'green': {
-					50: 'hsl(142, 76%, 95%)',
-					100: 'hsl(142, 76%, 90%)',
-					200: 'hsl(142, 76%, 80%)',
-					300: 'hsl(142, 76%, 70%)',
-					400: 'hsl(142, 76%, 60%)',
-					500: 'hsl(142, 76%, 50%)',
-					600: 'hsl(142, 76%, 36%)', // Primary green
-					700: 'hsl(142, 76%, 30%)',
-					800: 'hsl(142, 76%, 25%)',
-					900: 'hsl(142, 76%, 20%)',
+					50: 'hsl(120, 100%, 97%)',
+					100: 'hsl(120, 100%, 95%)',
+					200: 'hsl(120, 100%, 90%)',
+					300: 'hsl(120, 100%, 80%)',
+					400: 'hsl(120, 100%, 60%)',
+					500: 'hsl(120, 100%, 40%)',
+					600: 'hsl(120, 100%, 25%)', // Verde bandeira principal
+					700: 'hsl(120, 100%, 20%)',
+					800: 'hsl(120, 100%, 15%)',
+					900: 'hsl(120, 100%, 10%)',
 				},
 				'blue': {
-					50: 'hsl(217, 91%, 95%)',
-					100: 'hsl(217, 91%, 90%)',
-					200: 'hsl(217, 91%, 80%)',
-					300: 'hsl(217, 91%, 70%)',
-					400: 'hsl(217, 91%, 60%)',
-					500: 'hsl(217, 91%, 50%)',
-					600: 'hsl(217, 91%, 40%)', // Primary blue
-					700: 'hsl(217, 91%, 35%)',
-					800: 'hsl(217, 91%, 30%)',
-					900: 'hsl(217, 91%, 25%)',
+					50: 'hsl(200, 100%, 97%)',
+					100: 'hsl(200, 100%, 95%)',
+					200: 'hsl(200, 100%, 85%)',
+					300: 'hsl(200, 100%, 70%)',
+					400: 'hsl(200, 100%, 55%)',
+					500: 'hsl(200, 100%, 45%)',
+					600: 'hsl(200, 100%, 40%)', // Azul bandeira principal
+					700: 'hsl(200, 100%, 35%)',
+					800: 'hsl(200, 100%, 30%)',
+					900: 'hsl(200, 100%, 25%)',
+				},
+				'yellow': {
+					50: 'hsl(54, 100%, 97%)',
+					100: 'hsl(54, 100%, 95%)',
+					200: 'hsl(54, 100%, 85%)',
+					300: 'hsl(54, 100%, 75%)',
+					400: 'hsl(54, 100%, 65%)',
+					500: 'hsl(54, 100%, 55%)', // Amarelo bandeira
+					600: 'hsl(54, 100%, 50%)',
+					700: 'hsl(54, 100%, 45%)',
+					800: 'hsl(54, 100%, 40%)',
+					900: 'hsl(54, 100%, 35%)',
 				}
 			},
 			borderRadius: {
