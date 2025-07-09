@@ -13,13 +13,18 @@ export interface AuthUser {
 export const authService = {
   signUp: async (email: string, password: string, userData: { 
     full_name: string; 
-    user_type: 'jogador' | 'clube' | 'empresario' 
+    user_type: 'jogador' | 'clube' | 'empresario';
+    emailRedirectTo?: string;
   }) => {
     const { data, error } = await supabase.auth.signUp({
       email,
       password,
       options: {
-        data: userData
+        data: {
+          full_name: userData.full_name,
+          user_type: userData.user_type
+        },
+        emailRedirectTo: userData.emailRedirectTo || `${window.location.origin}/dashboard`
       }
     });
     
@@ -36,7 +41,6 @@ export const authService = {
     if (error) throw error;
     
     if (rememberMe) {
-      // Supabase handles session persistence automatically
       localStorage.setItem('rememberMe', 'true');
     }
     
@@ -55,6 +59,7 @@ export const authService = {
 
   onAuthStateChange: (callback: (user: AuthUser | null) => void) => {
     return supabase.auth.onAuthStateChange((event, session) => {
+      console.log('Auth state change:', event, session?.user?.id);
       if (session?.user) {
         callback({
           id: session.user.id,

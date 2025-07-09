@@ -7,7 +7,8 @@ interface AuthContextType {
   loading: boolean;
   signUp: (email: string, password: string, userData: { 
     full_name: string; 
-    user_type: 'jogador' | 'clube' | 'empresario' 
+    user_type: 'jogador' | 'clube' | 'empresario';
+    emailRedirectTo?: string;
   }) => Promise<void>;
   signIn: (email: string, password: string, rememberMe?: boolean) => Promise<void>;
   signOut: () => Promise<void>;
@@ -32,7 +33,14 @@ export const SupabaseAuthProvider: React.FC<AuthProviderProps> = ({ children }) 
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    // Get initial session
+    // Set up auth state listener FIRST
+    const { data: { subscription } } = authService.onAuthStateChange((user) => {
+      console.log('User state updated:', user?.id);
+      setUser(user);
+      setLoading(false);
+    });
+
+    // THEN get initial session
     authService.getCurrentUser().then(({ data: { user } }) => {
       if (user) {
         setUser({
@@ -44,18 +52,13 @@ export const SupabaseAuthProvider: React.FC<AuthProviderProps> = ({ children }) 
       setLoading(false);
     });
 
-    // Listen for auth changes
-    const { data: { subscription } } = authService.onAuthStateChange((user) => {
-      setUser(user);
-      setLoading(false);
-    });
-
     return () => subscription.unsubscribe();
   }, []);
 
   const signUp = async (email: string, password: string, userData: { 
     full_name: string; 
-    user_type: 'jogador' | 'clube' | 'empresario' 
+    user_type: 'jogador' | 'clube' | 'empresario';
+    emailRedirectTo?: string;
   }) => {
     await authService.signUp(email, password, userData);
   };

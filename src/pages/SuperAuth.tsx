@@ -19,6 +19,7 @@ const SuperAuth = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
   const [rememberMe, setRememberMe] = useState(false);
+  const [showSignUp, setShowSignUp] = useState(mode === 'registro');
   const [formData, setFormData] = useState({
     email: '',
     password: '',
@@ -26,8 +27,6 @@ const SuperAuth = () => {
     full_name: '',
     user_type: 'jogador' as 'jogador' | 'clube' | 'empresario'
   });
-
-  const isLogin = mode === 'login';
 
   const userTypes = [
     {
@@ -55,7 +54,8 @@ const SuperAuth = () => {
     setIsLoading(true);
 
     try {
-      if (isLogin) {
+      if (!showSignUp) {
+        // Login
         await signIn(formData.email, formData.password, rememberMe);
         toast({
           title: "Login realizado com sucesso!",
@@ -63,22 +63,27 @@ const SuperAuth = () => {
         });
         navigate('/dashboard');
       } else {
+        // Registro
         if (formData.password !== formData.confirmPassword) {
           throw new Error('As senhas não coincidem');
         }
         
         await signUp(formData.email, formData.password, {
           full_name: formData.full_name,
-          user_type: formData.user_type
+          user_type: formData.user_type,
+          emailRedirectTo: `${window.location.origin}/dashboard`
         });
         
         toast({
           title: "Conta criada com sucesso!",
-          description: "Bem-vindo ao Super Talentos. Vamos configurar seu perfil.",
+          description: "Verifique seu email para confirmar a conta.",
         });
-        navigate('/super-onboarding');
+        
+        // Redirecionar para dashboard após criar conta
+        navigate('/dashboard');
       }
     } catch (error) {
+      console.error('Auth error:', error);
       toast({
         title: "Erro",
         description: error instanceof Error ? error.message : "Algo deu errado",
@@ -97,11 +102,11 @@ const SuperAuth = () => {
             <span className="text-white font-bold text-2xl">⚽</span>
           </div>
           <CardTitle className="text-2xl font-bold">
-            {isLogin ? 'Entrar no Super Talentos' : 'Criar Conta'}
+            {!showSignUp ? 'Entrar no Super Talentos' : 'Criar Conta'}
           </CardTitle>
           <p className="text-gray-600">
-            {isLogin 
-              ? 'Conectando você ao futebol' 
+            {!showSignUp 
+              ? 'Acesse sua conta para continuar' 
               : 'Junte-se ao Super Talentos - conectando você ao futebol'
             }
           </p>
@@ -109,7 +114,7 @@ const SuperAuth = () => {
 
         <CardContent>
           <form onSubmit={handleSubmit} className="space-y-4">
-            {!isLogin && (
+            {showSignUp && (
               <>
                 <div className="space-y-2">
                   <Label htmlFor="full_name">Nome Completo</Label>
@@ -184,7 +189,7 @@ const SuperAuth = () => {
               </div>
             </div>
 
-            {!isLogin && (
+            {showSignUp && (
               <div className="space-y-2">
                 <Label htmlFor="confirmPassword">Confirmar Senha</Label>
                 <Input
@@ -198,7 +203,7 @@ const SuperAuth = () => {
               </div>
             )}
 
-            {isLogin && (
+            {!showSignUp && (
               <div className="flex items-center space-x-2">
                 <Checkbox 
                   id="rememberMe"
@@ -216,20 +221,20 @@ const SuperAuth = () => {
               className="w-full bg-green-600 hover:bg-green-700" 
               disabled={isLoading}
             >
-              {isLoading ? 'Carregando...' : (isLogin ? 'Entrar' : 'Criar Conta')}
+              {isLoading ? 'Carregando...' : (!showSignUp ? 'Entrar' : 'Criar Conta')}
             </Button>
           </form>
 
           <div className="text-center mt-6">
             <p className="text-sm text-gray-600">
-              {isLogin ? 'Não tem uma conta?' : 'Já tem uma conta?'}
+              {!showSignUp ? 'Não tem uma conta?' : 'Já tem uma conta?'}
               {' '}
-              <Link 
-                to={isLogin ? '/super-registro' : '/super-login'} 
-                className="text-green-600 hover:text-green-700 font-medium"
+              <button 
+                onClick={() => setShowSignUp(!showSignUp)}
+                className="text-green-600 hover:text-green-700 font-medium underline"
               >
-                {isLogin ? 'Cadastre-se' : 'Entre aqui'}
-              </Link>
+                {!showSignUp ? 'Criar conta' : 'Fazer login'}
+              </button>
             </p>
           </div>
         </CardContent>
