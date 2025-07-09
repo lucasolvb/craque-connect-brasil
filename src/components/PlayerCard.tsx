@@ -34,12 +34,22 @@ const PlayerCard: React.FC<PlayerCardProps> = ({
     'técnica': '✨'
   };
 
+  // Calculate talent level based on age and skills
+  const talentLevel = Math.min(100, (player.habilidades.length * 15) + (age < 18 ? 20 : age < 21 ? 15 : 10));
+
+  const getTalentColor = (level: number) => {
+    if (level >= 80) return 'bg-green-500';
+    if (level >= 60) return 'bg-yellow-500';
+    if (level >= 40) return 'bg-orange-500';
+    return 'bg-red-500';
+  };
+
   const handleVideoPlay = () => {
     setIsPlaying(true);
   };
 
   return (
-    <Card className="overflow-hidden hover:shadow-2xl transition-all duration-300 group border-0 shadow-lg">
+    <Card className="overflow-hidden hover:shadow-2xl transition-all duration-300 group border-0 shadow-lg transform hover:-translate-y-2 bg-white">
       <div className="relative">
         {/* Player Image/Video Preview */}
         <div className="aspect-video bg-gradient-to-br from-green-100 to-blue-100 relative overflow-hidden">
@@ -74,7 +84,9 @@ const PlayerCard: React.FC<PlayerCardProps> = ({
             />
           ) : (
             <div className="w-full h-full flex items-center justify-center">
-              <User className="h-16 w-16 text-gray-400" />
+              <div className="w-20 h-20 bg-green-100 rounded-full flex items-center justify-center">
+                <User className="h-10 w-10 text-green-600" />
+              </div>
             </div>
           )}
           
@@ -126,7 +138,7 @@ const PlayerCard: React.FC<PlayerCardProps> = ({
           {/* Player Info Header */}
           <div className="flex items-start justify-between">
             <div className="flex items-center space-x-3">
-              <div className="w-14 h-14 bg-green-100 rounded-full flex items-center justify-center">
+              <div className="w-14 h-14 bg-green-100 rounded-full flex items-center justify-center overflow-hidden">
                 {player.avatar ? (
                   <img 
                     src={player.avatar} 
@@ -148,6 +160,20 @@ const PlayerCard: React.FC<PlayerCardProps> = ({
                   <span className="text-sm text-gray-500">{age} anos</span>
                 </div>
               </div>
+            </div>
+          </div>
+
+          {/* Talent Level Bar */}
+          <div className="space-y-2">
+            <div className="flex items-center justify-between text-sm">
+              <span className="text-gray-600 font-medium">Nível de Talento</span>
+              <span className="font-bold">{talentLevel}%</span>
+            </div>
+            <div className="w-full bg-gray-200 rounded-full h-2">
+              <div 
+                className={`h-2 rounded-full transition-all duration-300 ${getTalentColor(talentLevel)}`}
+                style={{ width: `${talentLevel}%` }}
+              ></div>
             </div>
           </div>
 
@@ -177,7 +203,7 @@ const PlayerCard: React.FC<PlayerCardProps> = ({
                 <Badge 
                   key={index} 
                   variant="outline" 
-                  className="text-xs py-1 px-2 border-green-200 text-green-700 bg-green-50"
+                  className="text-xs py-1 px-2 border-green-200 text-green-700 bg-green-50 hover:bg-green-100 transition-colors"
                 >
                   <span className="mr-1">{skillIcons[skill.toLowerCase()] || '⭐'}</span>
                   {skill}
@@ -210,7 +236,7 @@ const PlayerCard: React.FC<PlayerCardProps> = ({
           <div className="flex gap-2 pt-2">
             <Button 
               size="sm" 
-              className="flex-1 bg-green-600 hover:bg-green-700 font-medium"
+              className="flex-1 bg-green-600 hover:bg-green-700 font-medium transition-all duration-200 transform hover:scale-105"
               onClick={onView}
             >
               Ver Perfil Completo
@@ -218,7 +244,7 @@ const PlayerCard: React.FC<PlayerCardProps> = ({
             <Button 
               size="sm" 
               variant="outline"
-              className="border-green-600 text-green-600 hover:bg-green-50"
+              className="border-green-600 text-green-600 hover:bg-green-50 transition-all duration-200 transform hover:scale-105"
               onClick={onFavorite}
             >
               <Heart className={`h-4 w-4 ${isFavorited ? 'fill-current' : ''}`} />

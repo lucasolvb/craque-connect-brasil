@@ -4,26 +4,66 @@ import { ScrollArea, ScrollBar } from '@/components/ui/scroll-area';
 
 const ClubesParceiros = () => {
   const clubes = [
-    { nome: 'Flamengo', escudo: 'https://logoeps.com/wp-content/uploads/2013/03/flamengo-vector-logo.png' },
-    { nome: 'Palmeiras', escudo: 'https://logoeps.com/wp-content/uploads/2013/03/palmeiras-vector-logo.png' },
-    { nome: 'São Paulo', escudo: 'https://logoeps.com/wp-content/uploads/2013/03/sao-paulo-vector-logo.png' },
-    { nome: 'Corinthians', escudo: 'https://logoeps.com/wp-content/uploads/2013/03/corinthians-vector-logo.png' },
-    { nome: 'Fluminense', escudo: 'https://logoeps.com/wp-content/uploads/2013/03/fluminense-vector-logo.png' },
-    { nome: 'Santos', escudo: 'https://logoeps.com/wp-content/uploads/2013/03/santos-vector-logo.png' },
-    { nome: 'Botafogo', escudo: 'https://logoeps.com/wp-content/uploads/2013/03/botafogo-vector-logo.png' },
-    { nome: 'Vasco', escudo: 'https://logoeps.com/wp-content/uploads/2013/03/vasco-da-gama-vector-logo.png' },
-    { nome: 'Grêmio', escudo: 'https://logoeps.com/wp-content/uploads/2013/03/gremio-vector-logo.png' },
-    { nome: 'Internacional', escudo: 'https://logoeps.com/wp-content/uploads/2013/03/internacional-vector-logo.png' },
-    { nome: 'Atlético-MG', escudo: 'https://logoeps.com/wp-content/uploads/2013/03/atletico-mineiro-vector-logo.png' },
-    { nome: 'Cruzeiro', escudo: 'https://logoeps.com/wp-content/uploads/2013/03/cruzeiro-vector-logo.png' },
-    { nome: 'Bahia', escudo: 'https://logoeps.com/wp-content/uploads/2013/03/bahia-vector-logo.png' },
-    { nome: 'Vitória', escudo: 'https://logoeps.com/wp-content/uploads/2013/03/vitoria-vector-logo.png' },
-    { nome: 'Fortaleza', escudo: 'https://logoeps.com/wp-content/uploads/2013/03/fortaleza-vector-logo.png' },
-    { nome: 'Ceará', escudo: 'https://logoeps.com/wp-content/uploads/2013/03/ceara-vector-logo.png' },
-    { nome: 'Sport', escudo: 'https://logoeps.com/wp-content/uploads/2013/03/sport-recife-vector-logo.png' },
-    { nome: 'Athletico-PR', escudo: 'https://logoeps.com/wp-content/uploads/2013/03/atletico-paranaense-vector-logo.png' },
-    { nome: 'Coritiba', escudo: 'https://logoeps.com/wp-content/uploads/2013/03/coritiba-vector-logo.png' },
-    { nome: 'Goiás', escudo: 'https://logoeps.com/wp-content/uploads/2013/03/goias-vector-logo.png' }
+    { 
+      nome: 'Flamengo', 
+      escudo: 'https://logoeps.com/wp-content/uploads/2013/03/flamengo-vector-logo.png',
+      cor: '#E31E24'
+    },
+    { 
+      nome: 'Palmeiras', 
+      escudo: 'https://logoeps.com/wp-content/uploads/2013/03/palmeiras-vector-logo.png',
+      cor: '#006633'
+    },
+    { 
+      nome: 'São Paulo', 
+      escudo: 'https://logoeps.com/wp-content/uploads/2013/03/sao-paulo-vector-logo.png',
+      cor: '#FF0000'
+    },
+    { 
+      nome: 'Corinthians', 
+      escudo: 'https://logoeps.com/wp-content/uploads/2013/03/corinthians-vector-logo.png',
+      cor: '#000000'
+    },
+    { 
+      nome: 'Fluminense', 
+      escudo: 'https://logoeps.com/wp-content/uploads/2013/03/fluminense-vector-logo.png',
+      cor: '#7A2830'
+    },
+    { 
+      nome: 'Santos', 
+      escudo: 'https://logoeps.com/wp-content/uploads/2013/03/santos-vector-logo.png',
+      cor: '#000000'
+    },
+    { 
+      nome: 'Botafogo', 
+      escudo: 'https://logoeps.com/wp-content/uploads/2013/03/botafogo-vector-logo.png',
+      cor: '#000000'
+    },
+    { 
+      nome: 'Vasco', 
+      escudo: 'https://logoeps.com/wp-content/uploads/2013/03/vasco-da-gama-vector-logo.png',
+      cor: '#000000'
+    },
+    { 
+      nome: 'Grêmio', 
+      escudo: 'https://logoeps.com/wp-content/uploads/2013/03/gremio-vector-logo.png',
+      cor: '#0066CC'
+    },
+    { 
+      nome: 'Internacional', 
+      escudo: 'https://logoeps.com/wp-content/uploads/2013/03/internacional-vector-logo.png',
+      cor: '#CC0000'
+    },
+    { 
+      nome: 'Atlético-MG', 
+      escudo: 'https://logoeps.com/wp-content/uploads/2013/03/atletico-mineiro-vector-logo.png',
+      cor: '#000000'
+    },
+    { 
+      nome: 'Cruzeiro', 
+      escudo: 'https://logoeps.com/wp-content/uploads/2013/03/cruzeiro-vector-logo.png',
+      cor: '#003399'
+    }
   ];
 
   return (
@@ -38,14 +78,33 @@ const ClubesParceiros = () => {
             {clubes.map((clube, index) => (
               <div
                 key={index}
-                className="flex-none w-24 h-24 bg-white rounded-full flex items-center justify-center border-2 border-gray-200 hover:border-green-600 transition-colors cursor-pointer group shadow-md hover:shadow-lg"
+                className="flex-none w-24 h-24 bg-white rounded-full flex items-center justify-center border-2 border-gray-200 hover:border-green-600 transition-all duration-300 cursor-pointer group shadow-md hover:shadow-lg transform hover:scale-105"
+                style={{ borderColor: `${clube.cor}20` }}
               >
-                <img 
-                  src={clube.escudo} 
-                  alt={`Escudo ${clube.nome}`}
-                  className="w-16 h-16 object-contain group-hover:scale-110 transition-transform"
-                  loading="lazy"
-                />
+                <div className="w-16 h-16 flex items-center justify-center">
+                  <img 
+                    src={`https://cdn.jsdelivr.net/gh/transfermarkt/club-logos@main/logos/${clube.nome.toLowerCase().replace(/[^a-z0-9]/g, '')}.png`}
+                    alt={`Escudo ${clube.nome}`}
+                    className="w-14 h-14 object-contain group-hover:scale-110 transition-transform"
+                    loading="lazy"
+                    onError={(e) => {
+                      // Fallback para URLs alternativas se a primeira falhar
+                      const fallbacks = [
+                        `https://logoeps.com/wp-content/uploads/2013/03/${clube.nome.toLowerCase().replace(/\s+/g, '-').replace('ã', 'a').replace('é', 'e')}-vector-logo.png`,
+                        `https://ssl.gstatic.com/onebox/media/sports/logos/${clube.nome.toLowerCase()}_48x48.png`,
+                        `data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='56' height='56' viewBox='0 0 56 56'%3E%3Ccircle cx='28' cy='28' r='26' fill='${clube.cor}' stroke='%23fff' stroke-width='4'/%3E%3Ctext x='28' y='32' text-anchor='middle' fill='white' font-family='Arial' font-size='10' font-weight='bold'%3E${clube.nome.substring(0, 3).toUpperCase()}%3C/text%3E%3C/svg%3E`
+                      ];
+                      
+                      const currentSrc = e.currentTarget.src;
+                      const currentIndex = fallbacks.findIndex(url => url === currentSrc);
+                      
+                      if (currentIndex < fallbacks.length - 1) {
+                        e.currentTarget.src = fallbacks[currentIndex + 1];
+                      }
+                    }}
+                  />
+                </div>
+                <span className="sr-only">{clube.nome}</span>
               </div>
             ))}
           </div>
