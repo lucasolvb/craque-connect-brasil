@@ -6,11 +6,11 @@ import { Badge } from '@/components/ui/badge';
 import { Target, Video, Award } from 'lucide-react';
 
 interface WeeklyChallengeProps {
-  title: string;
-  description: string;
-  progress: number;
-  reward: string;
-  deadline: string;
+  title?: string;
+  description?: string;
+  progress?: number;
+  reward?: string;
+  deadline?: string;
 }
 
 const WeeklyChallenge = ({
