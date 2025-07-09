@@ -64,8 +64,7 @@ const SuperLanding = () => {
           </h1>
           
           <p className="text-xl text-white/90 mb-12 max-w-4xl mx-auto leading-relaxed">
-            A plataforma onde jovens talentos do futebol brasileiro são descobertos 
-            por clubes e empresários de todo o país
+            Mostre seu futebol para os maiores clubes e empresários do mercado e fique atento às oportunidades!
           </p>
           
           <div className="flex flex-col sm:flex-row gap-6 justify-center mb-16">
