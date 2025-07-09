@@ -44,7 +44,7 @@ export const useAnalytics = () => {
         searchesPerformed: 89,
         playersViewed: 156,
         favoritesSaved: 23,
-        messagesent: 12,
+        messagessent: 12,
         weeklyActivity: [12, 23, 34, 45, 56, 34, 23]
       });
     }

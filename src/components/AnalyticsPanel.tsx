@@ -121,7 +121,7 @@ const AnalyticsPanel: React.FC = () => {
               </div>
               <div className="text-center p-4 bg-purple-50 rounded-lg">
                 <MessageSquare className="h-6 w-6 text-purple-600 mx-auto mb-2" />
-                <p className="text-2xl font-bold text-purple-600">{clubAnalytics.messagesent}</p>
+                <p className="text-2xl font-bold text-purple-600">{clubAnalytics.messagessent}</p>
                 <p className="text-sm text-gray-600">Mensagens</p>
               </div>
             </div>
