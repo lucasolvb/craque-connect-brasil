@@ -1,3 +1,4 @@
+
 import type { Config } from "tailwindcss";
 
 export default {
@@ -25,42 +26,57 @@ export default {
 				background: 'hsl(var(--background))',
 				foreground: 'hsl(var(--foreground))',
 				primary: {
-					DEFAULT: 'hsl(var(--primary))',
-					foreground: 'hsl(var(--primary-foreground))'
+					DEFAULT: 'hsl(142, 76%, 36%)', // Verde brasileiro
+					foreground: 'hsl(0, 0%, 100%)'
 				},
 				secondary: {
-					DEFAULT: 'hsl(var(--secondary))',
-					foreground: 'hsl(var(--secondary-foreground))'
+					DEFAULT: 'hsl(217, 91%, 60%)', // Azul moderno
+					foreground: 'hsl(0, 0%, 100%)'
 				},
 				destructive: {
-					DEFAULT: 'hsl(var(--destructive))',
-					foreground: 'hsl(var(--destructive-foreground))'
+					DEFAULT: 'hsl(0, 84.2%, 60.2%)',
+					foreground: 'hsl(210, 40%, 98%)'
 				},
 				muted: {
-					DEFAULT: 'hsl(var(--muted))',
-					foreground: 'hsl(var(--muted-foreground))'
+					DEFAULT: 'hsl(210, 40%, 96.1%)',
+					foreground: 'hsl(215.4, 16.3%, 46.9%)'
 				},
 				accent: {
-					DEFAULT: 'hsl(var(--accent))',
-					foreground: 'hsl(var(--accent-foreground))'
+					DEFAULT: 'hsl(210, 40%, 96.1%)',
+					foreground: 'hsl(222.2, 47.4%, 11.2%)'
 				},
 				popover: {
-					DEFAULT: 'hsl(var(--popover))',
-					foreground: 'hsl(var(--popover-foreground))'
+					DEFAULT: 'hsl(0, 0%, 100%)',
+					foreground: 'hsl(222.2, 84%, 4.9%)'
 				},
 				card: {
-					DEFAULT: 'hsl(var(--card))',
-					foreground: 'hsl(var(--card-foreground))'
+					DEFAULT: 'hsl(0, 0%, 100%)',
+					foreground: 'hsl(222.2, 84%, 4.9%)'
 				},
-				sidebar: {
-					DEFAULT: 'hsl(var(--sidebar-background))',
-					foreground: 'hsl(var(--sidebar-foreground))',
-					primary: 'hsl(var(--sidebar-primary))',
-					'primary-foreground': 'hsl(var(--sidebar-primary-foreground))',
-					accent: 'hsl(var(--sidebar-accent))',
-					'accent-foreground': 'hsl(var(--sidebar-accent-foreground))',
-					border: 'hsl(var(--sidebar-border))',
-					ring: 'hsl(var(--sidebar-ring))'
+				// Cores específicas do FutTalent
+				'green': {
+					50: 'hsl(142, 76%, 95%)',
+					100: 'hsl(142, 76%, 90%)',
+					200: 'hsl(142, 76%, 80%)',
+					300: 'hsl(142, 76%, 70%)',
+					400: 'hsl(142, 76%, 60%)',
+					500: 'hsl(142, 76%, 50%)',
+					600: 'hsl(142, 76%, 36%)', // Primary green
+					700: 'hsl(142, 76%, 30%)',
+					800: 'hsl(142, 76%, 25%)',
+					900: 'hsl(142, 76%, 20%)',
+				},
+				'blue': {
+					50: 'hsl(217, 91%, 95%)',
+					100: 'hsl(217, 91%, 90%)',
+					200: 'hsl(217, 91%, 80%)',
+					300: 'hsl(217, 91%, 70%)',
+					400: 'hsl(217, 91%, 60%)',
+					500: 'hsl(217, 91%, 50%)',
+					600: 'hsl(217, 91%, 40%)', // Primary blue
+					700: 'hsl(217, 91%, 35%)',
+					800: 'hsl(217, 91%, 30%)',
+					900: 'hsl(217, 91%, 25%)',
 				}
 			},
 			borderRadius: {
@@ -84,11 +100,33 @@ export default {
 					to: {
 						height: '0'
 					}
+				},
+				'fade-in': {
+					'0%': {
+						opacity: '0',
+						transform: 'translateY(10px)'
+					},
+					'100%': {
+						opacity: '1',
+						transform: 'translateY(0)'
+					}
+				},
+				'scale-in': {
+					'0%': {
+						transform: 'scale(0.95)',
+						opacity: '0'
+					},
+					'100%': {
+						transform: 'scale(1)',
+						opacity: '1'
+					}
 				}
 			},
 			animation: {
 				'accordion-down': 'accordion-down 0.2s ease-out',
-				'accordion-up': 'accordion-up 0.2s ease-out'
+				'accordion-up': 'accordion-up 0.2s ease-out',
+				'fade-in': 'fade-in 0.3s ease-out',
+				'scale-in': 'scale-in 0.2s ease-out'
 			}
 		}
 	},
