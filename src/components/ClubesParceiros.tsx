@@ -18,7 +18,7 @@ const ClubesParceiros = () => {
     { nome: 'Cruzeiro', escudo: 'https://logoeps.com/wp-content/uploads/2013/03/cruzeiro-vector-logo.png' },
     { nome: 'Bahia', escudo: 'https://logoeps.com/wp-content/uploads/2013/03/bahia-vector-logo.png' },
     { nome: 'Vitória', escudo: 'https://logoeps.com/wp-content/uploads/2013/03/vitoria-vector-logo.png' },
-    { nome: 'Fortaleza', escudo: 'https://i.imgur.com/X8mWmCA.png' },
+    { nome: 'Fortaleza', escudo: 'https://logoeps.com/wp-content/uploads/2013/03/fortaleza-vector-logo.png' },
     { nome: 'Ceará', escudo: 'https://logoeps.com/wp-content/uploads/2013/03/ceara-vector-logo.png' },
     { nome: 'Sport', escudo: 'https://logoeps.com/wp-content/uploads/2013/03/sport-recife-vector-logo.png' },
     { nome: 'Athletico-PR', escudo: 'https://logoeps.com/wp-content/uploads/2013/03/atletico-paranaense-vector-logo.png' },
@@ -44,14 +44,7 @@ const ClubesParceiros = () => {
                   src={clube.escudo} 
                   alt={`Escudo ${clube.nome}`}
                   className="w-16 h-16 object-contain group-hover:scale-110 transition-transform"
-                  onError={(e) => {
-                    // Fallback para texto se a imagem não carregar
-                    e.currentTarget.style.display = 'none';
-                    const fallback = document.createElement('div');
-                    fallback.className = 'text-xs font-bold text-gray-700 text-center p-2';
-                    fallback.textContent = clube.nome.length > 8 ? clube.nome.substring(0, 8) + '...' : clube.nome;
-                    e.currentTarget.parentNode?.appendChild(fallback);
-                  }}
+                  loading="lazy"
                 />
               </div>
             ))}

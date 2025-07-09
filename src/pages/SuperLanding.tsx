@@ -19,7 +19,7 @@ const SuperLanding = () => {
               </div>
               <div>
                 <h1 className="text-2xl font-bold text-gray-900">Super Talentos</h1>
-                <p className="text-sm text-gray-600">conectando você ao futebol</p>
+                <p className="text-sm text-green-600 font-medium">Futebol para Todos</p>
               </div>
             </div>
             
@@ -41,7 +41,7 @@ const SuperLanding = () => {
         <div 
           className="absolute inset-0 opacity-30 bg-cover bg-center bg-no-repeat"
           style={{
-            backgroundImage: `url('https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D')`
+            backgroundImage: `url('https://images.unsplash.com/photo-1594736797933-d0601ba0cdde?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D')`
           }}
         ></div>
         
@@ -50,7 +50,7 @@ const SuperLanding = () => {
             Super Talentos
           </h1>
           <p className="text-2xl text-yellow-300 font-semibold mb-4">
-            conectando você ao futebol
+            Futebol para Todos
           </p>
           <p className="text-lg text-white mb-12 max-w-3xl mx-auto">
             Sua chance de brilhar no futebol brasileiro chegou! Mostre seu talento, conecte-se com clubes e empresários, 
@@ -78,12 +78,12 @@ const SuperLanding = () => {
               <p className="text-gray-600">Envie vídeos dos seus melhores lances e seja visto por olheiros profissionais</p>
             </div>
             <div className="bg-white rounded-lg p-6 shadow-lg">
-              <Users className="h-12 w-12 text-blue-600 mx-auto mb-4" />
+              <Users className="h-12 w-12 text-green-600 mx-auto mb-4" />
               <h3 className="text-lg font-bold text-gray-900 mb-2">Conecte-se com Clubes</h3>
               <p className="text-gray-600">Acesso direto a clubes parceiros em todo o Brasil</p>
             </div>
             <div className="bg-white rounded-lg p-6 shadow-lg">
-              <Star className="h-12 w-12 text-yellow-600 mx-auto mb-4" />
+              <Star className="h-12 w-12 text-green-600 mx-auto mb-4" />
               <h3 className="text-lg font-bold text-gray-900 mb-2">Seja Descoberto</h3>
               <p className="text-gray-600">Empresários e olheiros procuram novos talentos todos os dias</p>
             </div>
@@ -107,13 +107,13 @@ const SuperLanding = () => {
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            <Card className="text-center p-6 hover:shadow-xl transition-shadow border-0 shadow-md bg-green-50 border-l-4 border-l-green-600">
+            <Card className="text-center p-6 hover:shadow-xl transition-shadow border-0 shadow-md bg-white">
               <CardContent className="pt-6">
                 <div className="w-16 h-16 bg-green-600 rounded-full flex items-center justify-center mx-auto mb-4">
                   <Users className="h-8 w-8 text-white" />
                 </div>
-                <h3 className="text-xl font-semibold mb-2 text-green-800">Sou Jogador</h3>
-                <p className="text-gray-700 mb-4">
+                <h3 className="text-xl font-semibold mb-2 text-gray-900">Sou Jogador</h3>
+                <p className="text-gray-600 mb-4">
                   Crie seu perfil, envie seus vídeos e seja descoberto por clubes e empresários
                 </p>
                 <Link to="/dashboard">
@@ -124,34 +124,34 @@ const SuperLanding = () => {
               </CardContent>
             </Card>
 
-            <Card className="text-center p-6 hover:shadow-xl transition-shadow border-0 shadow-md">
+            <Card className="text-center p-6 hover:shadow-xl transition-shadow border-0 shadow-md bg-white">
               <CardContent className="pt-6">
-                <div className="w-16 h-16 bg-blue-600 rounded-full flex items-center justify-center mx-auto mb-4">
+                <div className="w-16 h-16 bg-green-600 rounded-full flex items-center justify-center mx-auto mb-4">
                   <Building className="h-8 w-8 text-white" />
                 </div>
-                <h3 className="text-xl font-semibold mb-2">Clubes & Olheiros</h3>
+                <h3 className="text-xl font-semibold mb-2 text-gray-900">Clubes & Olheiros</h3>
                 <p className="text-gray-600 mb-4">
                   Encontre novos talentos e acompanhe jogadores promissores
                 </p>
                 <Link to="/dashboard">
-                  <Button variant="outline" className="w-full border-blue-600 text-blue-600 hover:bg-blue-50">
+                  <Button variant="outline" className="w-full border-green-600 text-green-600 hover:bg-green-50">
                     Buscar Talentos
                   </Button>
                 </Link>
               </CardContent>
             </Card>
 
-            <Card className="text-center p-6 hover:shadow-xl transition-shadow border-0 shadow-md">
+            <Card className="text-center p-6 hover:shadow-xl transition-shadow border-0 shadow-md bg-white">
               <CardContent className="pt-6">
-                <div className="w-16 h-16 bg-yellow-600 rounded-full flex items-center justify-center mx-auto mb-4">
+                <div className="w-16 h-16 bg-green-600 rounded-full flex items-center justify-center mx-auto mb-4">
                   <Briefcase className="h-8 w-8 text-white" />
                 </div>
-                <h3 className="text-xl font-semibold mb-2">Empresários</h3>
+                <h3 className="text-xl font-semibold mb-2 text-gray-900">Empresários</h3>
                 <p className="text-gray-600 mb-4">
                   Gerencie carreiras e descubra os próximos craques do futebol
                 </p>
                 <Link to="/dashboard">
-                  <Button variant="outline" className="w-full border-yellow-600 text-yellow-600 hover:bg-yellow-50">
+                  <Button variant="outline" className="w-full border-green-600 text-green-600 hover:bg-green-50">
                     Gerenciar Atletas
                   </Button>
                 </Link>
@@ -174,41 +174,41 @@ const SuperLanding = () => {
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-            <div className="text-center bg-green-50 p-6 rounded-lg border border-green-200">
+            <div className="text-center bg-white p-6 rounded-lg border border-gray-200 shadow-sm">
               <div className="w-12 h-12 bg-green-600 rounded-lg flex items-center justify-center mx-auto mb-4">
                 <Video className="h-6 w-6 text-white" />
               </div>
-              <h3 className="font-semibold mb-2 text-green-800">Vídeos Profissionais</h3>
+              <h3 className="font-semibold mb-2 text-gray-900">Vídeos Profissionais</h3>
               <p className="text-sm text-gray-600">
                 Carregue vídeos dos seus melhores momentos em campo
               </p>
             </div>
 
-            <div className="text-center bg-blue-50 p-6 rounded-lg border border-blue-200">
-              <div className="w-12 h-12 bg-blue-600 rounded-lg flex items-center justify-center mx-auto mb-4">
+            <div className="text-center bg-white p-6 rounded-lg border border-gray-200 shadow-sm">
+              <div className="w-12 h-12 bg-green-600 rounded-lg flex items-center justify-center mx-auto mb-4">
                 <MapPin className="h-6 w-6 text-white" />
               </div>
-              <h3 className="font-semibold mb-2 text-blue-800">Visibilidade Nacional</h3>
+              <h3 className="font-semibold mb-2 text-gray-900">Visibilidade Nacional</h3>
               <p className="text-sm text-gray-600">
                 Seja encontrado por clubes em todo o Brasil
               </p>
             </div>
 
-            <div className="text-center bg-yellow-50 p-6 rounded-lg border border-yellow-200">
-              <div className="w-12 h-12 bg-yellow-600 rounded-lg flex items-center justify-center mx-auto mb-4">
+            <div className="text-center bg-white p-6 rounded-lg border border-gray-200 shadow-sm">
+              <div className="w-12 h-12 bg-green-600 rounded-lg flex items-center justify-center mx-auto mb-4">
                 <Star className="h-6 w-6 text-white" />
               </div>
-              <h3 className="font-semibold mb-2 text-yellow-800">Perfil Verificado</h3>
+              <h3 className="font-semibold mb-2 text-gray-900">Perfil Verificado</h3>
               <p className="text-sm text-gray-600">
                 Tenha credibilidade com perfil verificado
               </p>
             </div>
 
-            <div className="text-center bg-gray-50 p-6 rounded-lg border border-gray-200">
-              <div className="w-12 h-12 bg-gray-600 rounded-lg flex items-center justify-center mx-auto mb-4">
+            <div className="text-center bg-white p-6 rounded-lg border border-gray-200 shadow-sm">
+              <div className="w-12 h-12 bg-green-600 rounded-lg flex items-center justify-center mx-auto mb-4">
                 <Shield className="h-6 w-6 text-white" />
               </div>
-              <h3 className="font-semibold mb-2 text-gray-800">100% Seguro</h3>
+              <h3 className="font-semibold mb-2 text-gray-900">100% Seguro</h3>
               <p className="text-sm text-gray-600">
                 Plataforma segura e confiável para todos
               </p>
@@ -244,7 +244,7 @@ const SuperLanding = () => {
               </div>
               <div>
                 <h3 className="font-bold">Super Talentos</h3>
-                <p className="text-sm text-gray-400">conectando você ao futebol</p>
+                <p className="text-sm text-gray-400">Futebol para Todos</p>
               </div>
             </div>
             <div className="text-sm text-gray-400">
