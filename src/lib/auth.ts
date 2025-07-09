@@ -1,4 +1,3 @@
-
 export interface User {
   id: string;
   email: string;
@@ -26,6 +25,7 @@ export interface JogadorProfile {
   videos: string[];
   avatar?: string;
   bio?: string;
+  isVerified?: boolean;
 }
 
 // Mock data para demonstração
@@ -63,7 +63,8 @@ export const mockJogadores: JogadorProfile[] = [
     peso: '70kg',
     telefone: '(11) 99999-9999',
     videos: ['/placeholder.mp4'],
-    bio: 'Atacante rápido com boa finalização, procurando oportunidade em clube profissional.'
+    bio: 'Atacante rápido com boa finalização, procurando oportunidade em clube profissional.',
+    isVerified: false
   }
 ];
 
