@@ -80,8 +80,7 @@ const SuperLanding = () => {
             <Link to="/historias">
               <Button 
                 size="lg" 
-                variant="outline"
-                className="border-2 border-white text-white hover:bg-white hover:text-green-600 px-8 py-4 text-lg font-bold"
+                className="bg-yellow-500 hover:bg-yellow-600 text-black font-bold px-8 py-4 text-lg shadow-2xl transform hover:scale-105 transition-all duration-300"
               >
                 <Play className="mr-3 h-6 w-6" />
                 Ver Histórias de Sucesso
@@ -118,9 +117,20 @@ const SuperLanding = () => {
         </div>
       </section>
 
-      {/* Destaque para jogadores */}
-      <section className="py-16 bg-white">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      {/* Destaque para jogadores com imagem de fundo */}
+      <section className="relative py-16 overflow-hidden">
+        {/* Background Image - mesma do banner principal */}
+        <div 
+          className="absolute inset-0 bg-cover bg-center bg-no-repeat"
+          style={{
+            backgroundImage: `url('https://images.unsplash.com/photo-1431324155629-1a6deb1dec8d?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D')`
+          }}
+        ></div>
+        
+        {/* Overlay gradiente mais suave */}
+        <div className="absolute inset-0 bg-gradient-to-br from-white/90 via-green-50/95 to-white/90"></div>
+        
+        <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 z-10">
           <div className="text-center mb-12">
             <h2 className="text-4xl font-bold text-gray-900 mb-4">
               Seu Sonho no Futebol Começa Aqui
@@ -131,7 +141,7 @@ const SuperLanding = () => {
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-16">
-            <Card className="text-center p-6 hover:shadow-xl transition-all duration-300 transform hover:-translate-y-2 border-0 shadow-md bg-white">
+            <Card className="text-center p-6 hover:shadow-xl transition-all duration-300 transform hover:-translate-y-2 border-0 shadow-md bg-white/95 backdrop-blur-sm">
               <CardContent className="pt-6">
                 <div className="w-16 h-16 bg-green-600 rounded-full flex items-center justify-center mx-auto mb-6">
                   <Video className="h-8 w-8 text-white" />
@@ -146,7 +156,7 @@ const SuperLanding = () => {
               </CardContent>
             </Card>
 
-            <Card className="text-center p-6 hover:shadow-xl transition-all duration-300 transform hover:-translate-y-2 border-0 shadow-md bg-white">
+            <Card className="text-center p-6 hover:shadow-xl transition-all duration-300 transform hover:-translate-y-2 border-0 shadow-md bg-white/95 backdrop-blur-sm">
               <CardContent className="pt-6">
                 <div className="w-16 h-16 bg-green-600 rounded-full flex items-center justify-center mx-auto mb-6">
                   <Users className="h-8 w-8 text-white" />
@@ -161,7 +171,7 @@ const SuperLanding = () => {
               </CardContent>
             </Card>
 
-            <Card className="text-center p-6 hover:shadow-xl transition-all duration-300 transform hover:-translate-y-2 border-0 shadow-md bg-white">
+            <Card className="text-center p-6 hover:shadow-xl transition-all duration-300 transform hover:-translate-y-2 border-0 shadow-md bg-white/95 backdrop-blur-sm">
               <CardContent className="pt-6">
                 <div className="w-16 h-16 bg-green-600 rounded-full flex items-center justify-center mx-auto mb-6">
                   <Star className="h-8 w-8 text-white" />

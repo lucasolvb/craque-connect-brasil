@@ -1,3 +1,4 @@
+
 import React, { useState } from 'react';
 import { useAuth } from '@/contexts/AuthContext';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
@@ -44,6 +45,14 @@ const Dashboard = () => {
   const { favorites, toggleFavorite, isFavorite } = useFavorites();
   const { conversations } = useMessages();
 
+  // Se não há usuário, criamos um usuário mock para demonstração
+  const currentUser = user || {
+    id: 'demo-user',
+    name: 'Usuário Demo',
+    email: 'demo@example.com',
+    userType: 'jogador'
+  };
+
   const favoritePlayes = mockJogadores.filter(player => isFavorite(player.id));
   const unreadMessages = conversations.reduce((total, conv) => total + conv.unreadCount, 0);
 
@@ -62,7 +71,7 @@ const Dashboard = () => {
         <div className="lg:col-span-2">
           <div className="mb-6">
             <h1 className="text-3xl font-bold text-gray-900 mb-2">
-              Olá, {user?.name}! 👋
+              Olá, {currentUser?.name}! 👋
             </h1>
             <p className="text-gray-600">Transforme seu talento em oportunidade</p>
           </div>
@@ -405,9 +414,9 @@ const Dashboard = () => {
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
       {/* Dashboard Content */}
-      {user?.userType === 'jogador' && renderJogadorDashboard()}
-      {user?.userType === 'clube' && renderClubeDashboard()}
-      {user?.userType === 'empresario' && renderClubeDashboard()}
+      {currentUser?.userType === 'jogador' && renderJogadorDashboard()}
+      {currentUser?.userType === 'clube' && renderClubeDashboard()}
+      {currentUser?.userType === 'empresario' && renderClubeDashboard()}
     </div>
   );
 };
