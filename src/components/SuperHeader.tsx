@@ -12,7 +12,6 @@ import { Avatar, AvatarFallback } from '@/components/ui/avatar';
 import { useSupabaseAuth } from '@/contexts/SupabaseAuthContext';
 import { User, LogOut, Settings, Menu } from 'lucide-react';
 import { toast } from '@/hooks/use-toast';
-import NotificationDropdown from './NotificationDropdown';
 
 const SuperHeader = () => {
   const { user, signOut } = useSupabaseAuth();
@@ -69,18 +68,14 @@ const SuperHeader = () => {
             </DropdownMenu>
           </div>
 
-          {/* Logo centralizado */}
+          {/* Logo centralizado (não clicável) */}
           <div className="flex-1 flex justify-center">
-            <Link to="/dashboard" className="flex items-center">
-              <h1 className="text-xl font-bold text-gray-900">Super Talentos</h1>
-            </Link>
+            <h1 className="text-xl font-bold text-gray-900">Super Talentos</h1>
           </div>
 
           {/* User Menu */}
           {user ? (
             <div className="flex items-center space-x-3">
-              <NotificationDropdown />
-              
               <DropdownMenu>
                 <DropdownMenuTrigger asChild>
                   <Button variant="ghost" className="relative h-10 w-10 rounded-full">

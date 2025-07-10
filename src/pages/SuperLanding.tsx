@@ -3,11 +3,44 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
-import { Users, Trophy, Target, ArrowRight, Star } from 'lucide-react';
+import { Users, Trophy, Target, ArrowRight, Upload, Shield, Bell, RefreshCw } from 'lucide-react';
 import SuperHeader from '@/components/SuperHeader';
 import ClubesParceiros from '@/components/ClubesParceiros';
 
 const SuperLanding = () => {
+  const steps = [
+    {
+      number: 1,
+      title: 'Crie o seu Perfil de Jogador',
+      description: 'Insira o máximo de informações possíveis sobre você para que os clubes, empresários e olheiros possam te conhecer.',
+      icon: Users
+    },
+    {
+      number: 2,
+      title: 'Faça Upload dos seus vídeos',
+      description: 'Insira seus melhores vídeos que destacam suas habilidades e jogadas que podem chamar atenção dos clubes.',
+      icon: Upload
+    },
+    {
+      number: 3,
+      title: 'Verifique seu Perfil',
+      description: 'Faça a verificação do seu perfil e dos seus documentos para que seu perfil passe credibilidade e confirme sua idade.',
+      icon: Shield
+    },
+    {
+      number: 4,
+      title: 'Fique atento às notificações',
+      description: 'Esteja atento às notificações do sistema sobre as interações que você receber, peneiras e jogos próximos à sua cidade e dúvidas dos clubes sobre você.',
+      icon: Bell
+    },
+    {
+      number: 5,
+      title: 'Novas informações',
+      description: 'Atualize seu perfil com vídeos de boa qualidade, alimente seu perfil semanalmente para aumentar as chances de ter mais visibilidade no site.',
+      icon: RefreshCw
+    }
+  ];
+
   return (
     <div className="min-h-screen bg-gradient-to-br from-green-50 to-blue-50">
       <SuperHeader />
@@ -102,8 +135,43 @@ const SuperLanding = () => {
         </div>
       </section>
 
-      {/* Clubes Section */}
+      {/* Nova Seção - Como Funciona */}
       <section className="py-8 sm:py-16 bg-white">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center mb-12">
+            <h2 className="text-3xl sm:text-4xl font-bold text-gray-900 mb-2 leading-tight">
+              Agora ficou mais fácil
+            </h2>
+            <h2 className="text-3xl sm:text-4xl font-bold text-gray-900 mb-6 leading-tight">
+              virar jogador de futebol
+            </h2>
+          </div>
+
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-6">
+            {steps.map((step, index) => (
+              <Card key={index} className="bg-white border-0 shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1">
+                <CardContent className="p-6 text-center">
+                  <div className="w-12 h-12 bg-green-600 rounded-full flex items-center justify-center mx-auto mb-4">
+                    <span className="text-white font-bold text-lg">{step.number}</span>
+                  </div>
+                  <div className="w-10 h-10 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                    <step.icon className="h-5 w-5 text-green-600" />
+                  </div>
+                  <h3 className="text-base font-bold text-gray-900 mb-3 leading-tight">
+                    {step.title}
+                  </h3>
+                  <p className="text-sm text-gray-600 leading-relaxed">
+                    {step.description}
+                  </p>
+                </CardContent>
+              </Card>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Clubes Section */}
+      <section className="py-8 sm:py-16 bg-gray-50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <ClubesParceiros />
         </div>
