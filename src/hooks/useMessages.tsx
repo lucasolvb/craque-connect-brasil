@@ -1,6 +1,6 @@
 
 import { useState, useEffect } from 'react';
-import { useAuth } from '@/contexts/AuthContext';
+import { useSupabaseAuth } from '@/contexts/SupabaseAuthContext';
 
 export interface Message {
   id: string;
@@ -21,14 +21,14 @@ export interface Conversation {
 }
 
 export const useMessages = () => {
-  const { user } = useAuth();
+  const { user } = useSupabaseAuth();
   const [conversations, setConversations] = useState<Conversation[]>([]);
   const [messages, setMessages] = useState<{ [conversationId: string]: Message[] }>({});
   const [isLoading, setIsLoading] = useState(false);
 
   // Mock data - in real app would come from backend
   useEffect(() => {
-    if (user?.id && user.userType === 'clube') {
+    if (user?.id && user.user_metadata?.user_type === 'clube') {
       // Mock conversations for clubs
       const mockConversations: Conversation[] = [
         {

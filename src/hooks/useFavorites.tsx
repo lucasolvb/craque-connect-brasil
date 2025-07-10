@@ -1,10 +1,10 @@
 
 import { useState, useEffect } from 'react';
-import { useAuth } from '@/contexts/AuthContext';
+import { useSupabaseAuth } from '@/contexts/SupabaseAuthContext';
 import { JogadorProfile } from '@/lib/auth';
 
 export const useFavorites = () => {
-  const { user } = useAuth();
+  const { user } = useSupabaseAuth();
   const [favorites, setFavorites] = useState<string[]>([]);
   const [isLoading, setIsLoading] = useState(false);
 

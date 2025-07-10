@@ -1,6 +1,6 @@
 
 import { useState, useEffect } from 'react';
-import { useAuth } from '@/contexts/AuthContext';
+import { useSupabaseAuth } from '@/contexts/SupabaseAuthContext';
 
 export interface PlayerAnalytics {
   profileViews: number;
@@ -19,7 +19,7 @@ export interface ClubAnalytics {
 }
 
 export const useAnalytics = () => {
-  const { user } = useAuth();
+  const { user } = useSupabaseAuth();
   const [playerAnalytics, setPlayerAnalytics] = useState<PlayerAnalytics | null>(null);
   const [clubAnalytics, setClubAnalytics] = useState<ClubAnalytics | null>(null);
   const [isLoading, setIsLoading] = useState(false);
@@ -29,7 +29,7 @@ export const useAnalytics = () => {
 
     setIsLoading(true);
 
-    if (user.userType === 'jogador') {
+    if (user.user_metadata?.user_type === 'jogador') {
       // Mock player analytics
       setPlayerAnalytics({
         profileViews: 324,
@@ -38,7 +38,7 @@ export const useAnalytics = () => {
         searchAppearances: 45,
         weeklyViews: [23, 45, 67, 34, 56, 78, 43]
       });
-    } else if (user.userType === 'clube') {
+    } else if (user.user_metadata?.user_type === 'clube') {
       // Mock club analytics
       setClubAnalytics({
         searchesPerformed: 89,

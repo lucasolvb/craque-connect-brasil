@@ -1,6 +1,5 @@
-
 import React, { useState } from 'react';
-import { useAuth } from '@/contexts/AuthContext';
+import { useSupabaseAuth } from '@/contexts/SupabaseAuthContext';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
@@ -39,14 +38,19 @@ import { useFavorites } from '@/hooks/useFavorites';
 import { useMessages } from '@/hooks/useMessages';
 
 const Dashboard = () => {
-  const { user } = useAuth();
+  const { user } = useSupabaseAuth();
   const [activeTab, setActiveTab] = useState('overview');
   const [showVideoUpload, setShowVideoUpload] = useState(false);
   const { favorites, toggleFavorite, isFavorite } = useFavorites();
   const { conversations } = useMessages();
 
-  // Se não há usuário, criamos um usuário mock para demonstração
-  const currentUser = user || {
+  // Create a mock user for demo purposes or use Supabase user data
+  const currentUser = user ? {
+    id: user.id,
+    name: user.user_metadata?.full_name || 'Usuário',
+    email: user.email,
+    userType: user.user_metadata?.user_type || 'jogador'
+  } : {
     id: 'demo-user',
     name: 'Usuário Demo',
     email: 'demo@example.com',
