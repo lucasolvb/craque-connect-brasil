@@ -1,4 +1,3 @@
-
 import React from 'react';
 import { ScrollArea, ScrollBar } from '@/components/ui/scroll-area';
 
@@ -141,25 +140,21 @@ const ClubesParceiros = () => {
   };
 
   return (
-    <section className="py-8 bg-white border-t border-gray-200">
+    <section className="py-4 sm:py-8 bg-white border-t border-gray-200">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <h3 className="text-2xl font-bold text-gray-900 mb-6 text-center">
-          Clubes Parceiros - Série A 2025
-        </h3>
-        
         <ScrollArea className="w-full whitespace-nowrap">
-          <div className="flex space-x-6 pb-4">
+          <div className="flex space-x-4 sm:space-x-6 pb-4">
             {clubes.map((clube, index) => (
               <div
                 key={index}
-                className="flex-none w-24 h-24 bg-white rounded-full flex items-center justify-center border-2 border-gray-200 hover:border-green-600 transition-all duration-300 cursor-pointer group shadow-md hover:shadow-lg transform hover:scale-105"
+                className="flex-none w-16 h-16 sm:w-20 sm:h-20 md:w-24 md:h-24 bg-white rounded-full flex items-center justify-center border-2 border-gray-200 hover:border-green-600 transition-all duration-300 cursor-pointer group shadow-md hover:shadow-lg transform hover:scale-105"
                 style={{ borderColor: `${clube.cor}20` }}
               >
-                <div className="w-16 h-16 flex items-center justify-center">
+                <div className="w-12 h-12 sm:w-14 sm:h-14 md:w-16 md:h-16 flex items-center justify-center">
                   <img 
                     src={clube.escudo}
                     alt={`Escudo ${clube.nome}`}
-                    className="w-14 h-14 object-contain group-hover:scale-110 transition-transform"
+                    className="w-10 h-10 sm:w-12 sm:h-12 md:w-14 md:h-14 object-contain group-hover:scale-110 transition-transform"
                     loading="lazy"
                     onError={(e) => handleImageError(e, clube)}
                     crossOrigin="anonymous"
