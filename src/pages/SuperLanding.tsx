@@ -126,15 +126,15 @@ const SuperLanding = () => {
           }}
         ></div>
         
-        {/* Overlay gradiente mais suave */}
-        <div className="absolute inset-0 bg-gradient-to-br from-white/90 via-green-50/95 to-white/90"></div>
+        {/* Overlay gradiente verde semi-transparente - igual ao primeiro banner */}
+        <div className="absolute inset-0 bg-gradient-to-br from-green-600/80 via-green-700/70 to-green-800/80"></div>
         
         <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 z-10">
           <div className="text-center mb-12">
-            <h2 className="text-4xl font-bold text-gray-900 mb-4">
+            <h2 className="text-4xl font-bold text-white mb-4">
               Seu Sonho no Futebol Começa Aqui
             </h2>
-            <p className="text-xl text-gray-600 max-w-3xl mx-auto">
+            <p className="text-xl text-white/90 max-w-3xl mx-auto">
               Junte-se a milhares de jogadores que já fazem parte da nossa rede
             </p>
           </div>
@@ -142,45 +142,45 @@ const SuperLanding = () => {
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-16">
             <Card className="text-center p-6 hover:shadow-xl transition-all duration-300 transform hover:-translate-y-2 border-0 shadow-md bg-white/95 backdrop-blur-sm">
               <CardContent className="pt-6">
-                <div className="w-16 h-16 bg-green-600 rounded-full flex items-center justify-center mx-auto mb-6">
-                  <Video className="h-8 w-8 text-white" />
+                <div className="w-16 h-16 bg-yellow-500 rounded-full flex items-center justify-center mx-auto mb-6">
+                  <Video className="h-8 w-8 text-black" />
                 </div>
                 <h3 className="text-xl font-semibold mb-4 text-gray-900">Mostre Seu Talento</h3>
                 <p className="text-gray-600 mb-6">
                   Envie vídeos dos seus melhores lances e seja visto por olheiros profissionais
                 </p>
-                <div className="bg-green-50 rounded-lg p-3 mb-4">
-                  <p className="text-green-800 font-medium text-sm">+100 pontos por vídeo</p>
+                <div className="bg-yellow-50 rounded-lg p-3 mb-4">
+                  <p className="text-yellow-800 font-medium text-sm">+100 pontos por vídeo</p>
                 </div>
               </CardContent>
             </Card>
 
             <Card className="text-center p-6 hover:shadow-xl transition-all duration-300 transform hover:-translate-y-2 border-0 shadow-md bg-white/95 backdrop-blur-sm">
               <CardContent className="pt-6">
-                <div className="w-16 h-16 bg-green-600 rounded-full flex items-center justify-center mx-auto mb-6">
-                  <Users className="h-8 w-8 text-white" />
+                <div className="w-16 h-16 bg-yellow-500 rounded-full flex items-center justify-center mx-auto mb-6">
+                  <Users className="h-8 w-8 text-black" />
                 </div>
                 <h3 className="text-xl font-semibold mb-4 text-gray-900">Conecte-se com Clubes</h3>
                 <p className="text-gray-600 mb-6">
                   Acesso direto a clubes parceiros em todo o Brasil
                 </p>
-                <div className="bg-blue-50 rounded-lg p-3 mb-4">
-                  <p className="text-blue-800 font-medium text-sm">+50 clubes parceiros</p>
+                <div className="bg-yellow-50 rounded-lg p-3 mb-4">
+                  <p className="text-yellow-800 font-medium text-sm">+50 clubes parceiros</p>
                 </div>
               </CardContent>
             </Card>
 
             <Card className="text-center p-6 hover:shadow-xl transition-all duration-300 transform hover:-translate-y-2 border-0 shadow-md bg-white/95 backdrop-blur-sm">
               <CardContent className="pt-6">
-                <div className="w-16 h-16 bg-green-600 rounded-full flex items-center justify-center mx-auto mb-6">
-                  <Star className="h-8 w-8 text-white" />
+                <div className="w-16 h-16 bg-yellow-500 rounded-full flex items-center justify-center mx-auto mb-6">
+                  <Star className="h-8 w-8 text-black" />
                 </div>
                 <h3 className="text-xl font-semibold mb-4 text-gray-900">Seja Descoberto</h3>
                 <p className="text-gray-600 mb-6">
                   Empresários e olheiros procuram novos talentos todos os dias
                 </p>
-                <div className="bg-purple-50 rounded-lg p-3 mb-4">
-                  <p className="text-purple-800 font-medium text-sm">Rankings semanais</p>
+                <div className="bg-yellow-50 rounded-lg p-3 mb-4">
+                  <p className="text-yellow-800 font-medium text-sm">Rankings semanais</p>
                 </div>
               </CardContent>
             </Card>
