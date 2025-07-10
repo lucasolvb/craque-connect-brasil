@@ -1,5 +1,5 @@
 
-import React from 'react';
+import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 import { 
@@ -10,13 +10,14 @@ import {
 } from '@/components/ui/dropdown-menu';
 import { Avatar, AvatarFallback } from '@/components/ui/avatar';
 import { useSupabaseAuth } from '@/contexts/SupabaseAuthContext';
-import { User, LogOut, Settings, Search } from 'lucide-react';
+import { User, LogOut, Settings, Menu } from 'lucide-react';
 import { toast } from '@/hooks/use-toast';
 import NotificationDropdown from './NotificationDropdown';
 
 const SuperHeader = () => {
   const { user, signOut } = useSupabaseAuth();
   const navigate = useNavigate();
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   const handleSignOut = async () => {
     try {
@@ -35,37 +36,45 @@ const SuperHeader = () => {
     }
   };
 
+  const menuItems = [
+    { label: 'Times Parceiros', href: '/times-parceiros' },
+    { label: 'Oportunidades', href: '/oportunidades' },
+    { label: 'Notícias', href: '/noticias' }
+  ];
+
   return (
     <header className="bg-white shadow-sm border-b">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center py-4">
-          {/* Logo */}
-          <Link to="/dashboard" className="flex items-center space-x-3">
-            <div className="w-10 h-10 bg-green-600 rounded-full flex items-center justify-center">
-              <span className="text-white font-bold text-xl">⚽</span>
-            </div>
-            <div>
-              <h1 className="text-xl font-bold text-gray-900">Super Talentos</h1>
-              <p className="text-xs text-green-600 font-medium">Futebol para Todos</p>
-            </div>
-          </Link>
+          {/* Menu hamburguer */}
+          <div className="flex items-center">
+            <DropdownMenu open={isMenuOpen} onOpenChange={setIsMenuOpen}>
+              <DropdownMenuTrigger asChild>
+                <Button variant="ghost" size="sm" className="p-2">
+                  <Menu className="h-5 w-5 text-gray-700" />
+                </Button>
+              </DropdownMenuTrigger>
+              <DropdownMenuContent align="start" className="w-48">
+                {menuItems.map((item) => (
+                  <DropdownMenuItem key={item.label} asChild>
+                    <Link 
+                      to={item.href} 
+                      className="flex items-center w-full px-2 py-2 text-sm cursor-pointer hover:bg-gray-50"
+                    >
+                      {item.label}
+                    </Link>
+                  </DropdownMenuItem>
+                ))}
+              </DropdownMenuContent>
+            </DropdownMenu>
+          </div>
 
-          {/* Navigation */}
-          <nav className="hidden md:flex items-center space-x-8">
-            <Link 
-              to="/dashboard" 
-              className="text-gray-700 hover:text-green-600 transition-colors font-medium"
-            >
-              Dashboard
+          {/* Logo centralizado */}
+          <div className="flex-1 flex justify-center">
+            <Link to="/dashboard" className="flex items-center">
+              <h1 className="text-xl font-bold text-gray-900">Super Talentos</h1>
             </Link>
-            <Link 
-              to="/explorar" 
-              className="text-gray-700 hover:text-green-600 transition-colors font-medium flex items-center gap-2"
-            >
-              <Search className="h-4 w-4" />
-              Explorar
-            </Link>
-          </nav>
+          </div>
 
           {/* User Menu */}
           {user ? (
@@ -112,10 +121,10 @@ const SuperHeader = () => {
           ) : (
             <div className="flex items-center space-x-4">
               <Link to="/super-login">
-                <Button variant="outline">Entrar</Button>
+                <Button variant="outline">Login</Button>
               </Link>
               <Link to="/super-registro">
-                <Button className="bg-green-600 hover:bg-green-700">Cadastrar</Button>
+                <Button className="bg-green-600 hover:bg-green-700">Criar Conta</Button>
               </Link>
             </div>
           )}

@@ -6,6 +6,7 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import { SupabaseAuthProvider } from "@/contexts/SupabaseAuthContext";
 import Header from "@/components/Header";
+import SuperHeader from "@/components/SuperHeader";
 import SuperLanding from "@/pages/SuperLanding";
 import SuperAuth from "@/pages/SuperAuth";
 import Dashboard from "@/pages/Dashboard";
@@ -28,14 +29,14 @@ const AppRoutes = () => {
         {/* Rotas abertas temporariamente */}
         <Route path="/dashboard" element={
           <>
-            <Header />
+            <SuperHeader />
             <Dashboard />
           </>
         } />
         
         <Route path="/explorar" element={
           <>
-            <Header />
+            <SuperHeader />
             <Explorar />
           </>
         } />
