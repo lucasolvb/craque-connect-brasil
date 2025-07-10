@@ -49,7 +49,6 @@ const SuperLanding = () => {
         
         {/* Elementos gráficos sutis */}
         <div className="absolute inset-0 opacity-10">
-          <div className="absolute top-20 left-10 w-32 h-32 border-2 border-white rounded-full"></div>
           <div className="absolute bottom-20 right-10 w-24 h-24 border-2 border-white rounded-full"></div>
           <div className="absolute top-1/2 left-1/4 w-4 h-4 bg-white rounded-full"></div>
           <div className="absolute top-1/3 right-1/3 w-6 h-6 bg-white rounded-full"></div>
