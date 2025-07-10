@@ -1,3 +1,4 @@
+
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
@@ -49,7 +50,6 @@ const SuperLanding = () => {
         
         {/* Elementos gráficos sutis */}
         <div className="absolute inset-0 opacity-10">
-          <div className="absolute bottom-20 right-10 w-24 h-24 border-2 border-white rounded-full"></div>
           <div className="absolute top-1/2 left-1/4 w-4 h-4 bg-white rounded-full"></div>
           <div className="absolute top-1/3 right-1/3 w-6 h-6 bg-white rounded-full"></div>
         </div>
@@ -142,46 +142,37 @@ const SuperLanding = () => {
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-16">
             <Card className="text-center p-6 hover:shadow-xl transition-all duration-300 transform hover:-translate-y-2 border-0 shadow-md bg-white/95 backdrop-blur-sm">
               <CardContent className="pt-6">
-                <div className="w-16 h-16 bg-yellow-500 rounded-full flex items-center justify-center mx-auto mb-6">
-                  <Video className="h-8 w-8 text-black" />
+                <div className="w-16 h-16 bg-green-600 rounded-full flex items-center justify-center mx-auto mb-6">
+                  <Video className="h-8 w-8 text-white" />
                 </div>
                 <h3 className="text-xl font-semibold mb-4 text-gray-900">Mostre Seu Talento</h3>
-                <p className="text-gray-600 mb-6">
+                <p className="text-gray-600">
                   Envie vídeos dos seus melhores lances e seja visto por olheiros profissionais
                 </p>
-                <div className="bg-yellow-50 rounded-lg p-3 mb-4">
-                  <p className="text-yellow-800 font-medium text-sm">+100 pontos por vídeo</p>
-                </div>
               </CardContent>
             </Card>
 
             <Card className="text-center p-6 hover:shadow-xl transition-all duration-300 transform hover:-translate-y-2 border-0 shadow-md bg-white/95 backdrop-blur-sm">
               <CardContent className="pt-6">
-                <div className="w-16 h-16 bg-yellow-500 rounded-full flex items-center justify-center mx-auto mb-6">
-                  <Users className="h-8 w-8 text-black" />
+                <div className="w-16 h-16 bg-green-600 rounded-full flex items-center justify-center mx-auto mb-6">
+                  <Users className="h-8 w-8 text-white" />
                 </div>
                 <h3 className="text-xl font-semibold mb-4 text-gray-900">Conecte-se com Clubes</h3>
-                <p className="text-gray-600 mb-6">
+                <p className="text-gray-600">
                   Acesso direto a clubes parceiros em todo o Brasil
                 </p>
-                <div className="bg-yellow-50 rounded-lg p-3 mb-4">
-                  <p className="text-yellow-800 font-medium text-sm">+50 clubes parceiros</p>
-                </div>
               </CardContent>
             </Card>
 
             <Card className="text-center p-6 hover:shadow-xl transition-all duration-300 transform hover:-translate-y-2 border-0 shadow-md bg-white/95 backdrop-blur-sm">
               <CardContent className="pt-6">
-                <div className="w-16 h-16 bg-yellow-500 rounded-full flex items-center justify-center mx-auto mb-6">
-                  <Star className="h-8 w-8 text-black" />
+                <div className="w-16 h-16 bg-green-600 rounded-full flex items-center justify-center mx-auto mb-6">
+                  <Star className="h-8 w-8 text-white" />
                 </div>
                 <h3 className="text-xl font-semibold mb-4 text-gray-900">Seja Descoberto</h3>
-                <p className="text-gray-600 mb-6">
+                <p className="text-gray-600">
                   Empresários e olheiros procuram novos talentos todos os dias
                 </p>
-                <div className="bg-yellow-50 rounded-lg p-3 mb-4">
-                  <p className="text-yellow-800 font-medium text-sm">Rankings semanais</p>
-                </div>
               </CardContent>
             </Card>
           </div>
