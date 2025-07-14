@@ -235,12 +235,12 @@ const Home = () => {
     }
 
     // Filtro de posição
-    if (selectedPosition) {
+    if (selectedPosition && selectedPosition !== 'all') {
       filtered = filtered.filter(player => player.posicao === selectedPosition);
     }
 
     // Filtro de cidade
-    if (selectedCity) {
+    if (selectedCity && selectedCity !== 'all') {
       filtered = filtered.filter(player => player.cidade === selectedCity);
     }
 
@@ -355,7 +355,7 @@ const Home = () => {
                       <SelectValue placeholder="Todas as posições" />
                     </SelectTrigger>
                     <SelectContent>
-                      <SelectItem value="">Todas as posições</SelectItem>
+                      <SelectItem value="all">Todas as posições</SelectItem>
                       {positions.map(position => (
                         <SelectItem key={position} value={position}>
                           {position}
@@ -375,7 +375,7 @@ const Home = () => {
                       <SelectValue placeholder="Todas as cidades" />
                     </SelectTrigger>
                     <SelectContent>
-                      <SelectItem value="">Todas as cidades</SelectItem>
+                      <SelectItem value="all">Todas as cidades</SelectItem>
                       {cities.map(city => (
                         <SelectItem key={city} value={city}>
                           {city}
