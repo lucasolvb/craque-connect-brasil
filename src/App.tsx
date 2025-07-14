@@ -12,6 +12,7 @@ import SuperAuth from "@/pages/SuperAuth";
 import Dashboard from "@/pages/Dashboard";
 import Explorar from "@/pages/Explorar";
 import SuperOnboarding from "@/pages/SuperOnboarding";
+import Perfil from "@/pages/Perfil";
 import NotFound from "@/pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -42,6 +43,13 @@ const AppRoutes = () => {
         } />
         
         <Route path="/super-onboarding" element={<SuperOnboarding />} />
+        
+        <Route path="/perfil" element={
+          <>
+            <SuperHeader />
+            <Perfil />
+          </>
+        } />
         
         {/* Legacy routes redirect */}
         <Route path="/login" element={<Navigate to="/super-login" />} />
