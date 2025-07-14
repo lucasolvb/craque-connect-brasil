@@ -52,23 +52,13 @@ const SuperLanding = () => {
         <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center">
             <h1 className="text-3xl sm:text-4xl md:text-6xl font-bold text-gray-900 mb-4 sm:mb-6">
-              Conecte seu{' '}
               <span className="bg-gradient-to-r from-green-600 to-blue-600 bg-clip-text text-transparent">
-                Talento
-              </span>{' '}
-              aos{' '}
-              <span className="bg-gradient-to-r from-green-600 to-blue-600 bg-clip-text text-transparent">
-                Clubes
+                Joga Bola, Jogador
               </span>
             </h1>
             
             <p className="text-lg sm:text-xl text-gray-600 mb-6 sm:mb-8 max-w-3xl mx-auto px-4">
-              A plataforma que revoluciona o futebol brasileiro, conectando jogadores talentosos 
-              diretamente aos clubes que procuram por novos talentos.
-            </p>
-
-            <p className="text-base sm:text-lg text-green-600 font-semibold mb-6 sm:mb-8">
-              Agora você pode mostrar seu futebol ao mundo!
+              A única plataforma do futebol brasileiro que conecta jogadores de todo o país com os maiores clubes e empresários do mercado.
             </p>
 
             <div className="flex justify-center">
