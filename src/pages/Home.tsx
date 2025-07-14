@@ -391,14 +391,9 @@ const Home = () => {
             <Card className="p-6">
               <div className="flex items-center justify-between mb-4">
                 <h3 className="font-semibold text-gray-900">Filtros</h3>
-                <div className="flex gap-2">
-                  <Button variant="ghost" size="sm" onClick={clearFilters}>
-                    Limpar
-                  </Button>
-                  <Button variant="outline" size="sm" onClick={() => setShowFilters(false)}>
-                    Aplicar Filtros
-                  </Button>
-                </div>
+                <Button variant="ghost" size="sm" onClick={clearFilters}>
+                  Limpar
+                </Button>
               </div>
 
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -436,26 +431,6 @@ const Home = () => {
                       {states.map(state => (
                         <SelectItem key={state} value={state}>
                           {state}
-                        </SelectItem>
-                      ))}
-                    </SelectContent>
-                  </Select>
-                </div>
-
-                {/* Cidade */}
-                <div>
-                  <Label className="text-sm font-medium text-gray-700 mb-2 block">
-                    Cidade
-                  </Label>
-                  <Select value={selectedCity} onValueChange={setSelectedCity}>
-                    <SelectTrigger>
-                      <SelectValue placeholder="Todas as cidades" />
-                    </SelectTrigger>
-                    <SelectContent>
-                      <SelectItem value="all">Todas as cidades</SelectItem>
-                      {cities.map(city => (
-                        <SelectItem key={city} value={city}>
-                          {city}
                         </SelectItem>
                       ))}
                     </SelectContent>
@@ -578,6 +553,16 @@ const Home = () => {
                   </div>
                 </div>
               </div>
+              
+              {/* Apply Filters Button */}
+              <div className="mt-6 flex justify-center">
+                <Button 
+                  className="bg-green-600 hover:bg-green-700 text-white px-8 py-3"
+                  onClick={() => setShowFilters(false)}
+                >
+                  Aplicar Filtros
+                </Button>
+              </div>
             </Card>
           </div>
         ) : (
@@ -614,26 +599,6 @@ const Home = () => {
                     </Select>
                   </div>
 
-                  {/* Cidade */}
-                  <div>
-                    <Label className="text-sm font-medium text-gray-700 mb-2 block">
-                      Cidade
-                    </Label>
-                    <Select value={selectedCity} onValueChange={setSelectedCity}>
-                      <SelectTrigger>
-                        <SelectValue placeholder="Todas as cidades" />
-                      </SelectTrigger>
-                      <SelectContent>
-                        <SelectItem value="all">Todas as cidades</SelectItem>
-                        {cities.map(city => (
-                          <SelectItem key={city} value={city}>
-                            {city}
-                          </SelectItem>
-                        ))}
-                      </SelectContent>
-                    </Select>
-                  </div>
-
                   {/* Estado */}
                   <div>
                     <Label className="text-sm font-medium text-gray-700 mb-2 block">
@@ -648,26 +613,6 @@ const Home = () => {
                         {states.map(state => (
                           <SelectItem key={state} value={state}>
                             {state}
-                          </SelectItem>
-                        ))}
-                      </SelectContent>
-                    </Select>
-                  </div>
-
-                  {/* Cidade */}
-                  <div>
-                    <Label className="text-sm font-medium text-gray-700 mb-2 block">
-                      Cidade
-                    </Label>
-                    <Select value={selectedCity} onValueChange={setSelectedCity}>
-                      <SelectTrigger>
-                        <SelectValue placeholder="Todas as cidades" />
-                      </SelectTrigger>
-                      <SelectContent>
-                        <SelectItem value="all">Todas as cidades</SelectItem>
-                        {cities.map(city => (
-                          <SelectItem key={city} value={city}>
-                            {city}
                           </SelectItem>
                         ))}
                       </SelectContent>
