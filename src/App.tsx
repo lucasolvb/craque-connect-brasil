@@ -14,6 +14,7 @@ import Explorar from "@/pages/Explorar";
 import SuperOnboarding from "@/pages/SuperOnboarding";
 import Perfil from "@/pages/Perfil";
 import Clubes from "@/pages/Clubes";
+import Home from "@/pages/Home";
 import NotFound from "@/pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -56,6 +57,13 @@ const AppRoutes = () => {
           <>
             <SuperHeader />
             <Clubes />
+          </>
+        } />
+        
+        <Route path="/home" element={
+          <>
+            <SuperHeader />
+            <Home />
           </>
         } />
         

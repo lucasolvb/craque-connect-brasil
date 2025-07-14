@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { Card, CardContent } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -79,6 +80,7 @@ const mockPlayers: Player[] = [
 ];
 
 const Clubes = () => {
+  const navigate = useNavigate();
   const [searchQuery, setSearchQuery] = useState('');
   const [searchResults, setSearchResults] = useState<Player[]>([]);
   const [isSearching, setIsSearching] = useState(false);
@@ -91,54 +93,12 @@ const Clubes = () => {
     }
 
     setIsSearching(true);
-    setHasSearched(true);
 
     // Simular delay de busca
     await new Promise(resolve => setTimeout(resolve, 1500));
 
-    // Lógica simples de busca baseada no prompt
-    const query = searchQuery.toLowerCase();
-    let filteredPlayers = mockPlayers;
-
-    // Filtros baseados em palavras-chave no prompt
-    if (query.includes('atacante') || query.includes('gol') || query.includes('finalização')) {
-      filteredPlayers = filteredPlayers.filter(p => p.posicao === 'Atacante');
-    }
-    
-    if (query.includes('meio') || query.includes('passe') || query.includes('armação')) {
-      filteredPlayers = filteredPlayers.filter(p => p.posicao === 'Meio-campo');
-    }
-    
-    if (query.includes('zagueiro') || query.includes('defesa') || query.includes('marcação')) {
-      filteredPlayers = filteredPlayers.filter(p => p.posicao === 'Zagueiro');
-    }
-    
-    if (query.includes('lateral') || query.includes('ala')) {
-      filteredPlayers = filteredPlayers.filter(p => p.posicao === 'Lateral');
-    }
-
-    if (query.includes('jovem') || query.includes('novo') || query.includes('18') || query.includes('19')) {
-      filteredPlayers = filteredPlayers.filter(p => p.idade <= 19);
-    }
-
-    if (query.includes('alto') || query.includes('altura')) {
-      filteredPlayers = filteredPlayers.filter(p => parseFloat(p.altura.replace('m', '')) >= 1.80);
-    }
-
-    if (query.includes('rápido') || query.includes('velocidade')) {
-      filteredPlayers = filteredPlayers.filter(p => p.habilidades.includes('Velocidade'));
-    }
-
-    if (query.includes('são paulo') || query.includes('sp')) {
-      filteredPlayers = filteredPlayers.filter(p => p.cidade.includes('São Paulo'));
-    }
-
-    if (query.includes('verificado') || query.includes('documentos')) {
-      filteredPlayers = filteredPlayers.filter(p => p.verificado);
-    }
-
-    setSearchResults(filteredPlayers);
-    setIsSearching(false);
+    // Redirecionar para /home com a query de busca
+    navigate(`/home?q=${encodeURIComponent(searchQuery)}`);
   };
 
   const handleKeyPress = (e: React.KeyboardEvent) => {
