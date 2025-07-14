@@ -42,7 +42,7 @@ const SuperHeader = () => {
   ];
 
   return (
-    <header className="bg-white shadow-sm border-b">
+    <header className="bg-green-600 shadow-sm border-b">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center py-4">
           {/* Menu hamburguer */}
@@ -50,7 +50,7 @@ const SuperHeader = () => {
             <DropdownMenu open={isMenuOpen} onOpenChange={setIsMenuOpen}>
               <DropdownMenuTrigger asChild>
                 <Button variant="ghost" size="sm" className="p-2">
-                  <Menu className="h-5 w-5 text-gray-700" />
+                  <Menu className="h-5 w-5 text-white" />
                 </Button>
               </DropdownMenuTrigger>
               <DropdownMenuContent align="start" className="w-48">
@@ -70,7 +70,7 @@ const SuperHeader = () => {
 
           {/* Logo centralizado (não clicável) */}
           <div className="flex-1 flex justify-center">
-            <h1 className="text-xl font-bold text-gray-900">Super Talentos</h1>
+            <h1 className="text-xl font-bold text-white">Super Talentos</h1>
           </div>
 
           {/* User Menu */}
@@ -116,10 +116,10 @@ const SuperHeader = () => {
           ) : (
             <div className="flex items-center space-x-4">
               <Link to="/super-login">
-                <Button variant="outline">Login</Button>
+                <Button variant="outline" className="border-white text-white hover:bg-white hover:text-green-600">Login</Button>
               </Link>
               <Link to="/super-registro">
-                <Button className="bg-green-600 hover:bg-green-700">Criar Conta</Button>
+                <Button className="bg-white text-green-600 hover:bg-gray-100">Criar Conta</Button>
               </Link>
             </div>
           )}
