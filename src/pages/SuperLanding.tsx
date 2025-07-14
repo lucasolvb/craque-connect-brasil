@@ -6,6 +6,7 @@ import { Card, CardContent } from '@/components/ui/card';
 import { Users, Trophy, Target, ArrowRight, Upload, Shield, Bell, RefreshCw } from 'lucide-react';
 import SuperHeader from '@/components/SuperHeader';
 import ClubesParceiros from '@/components/ClubesParceiros';
+import stadiumBanner from '@/assets/stadium-banner.jpg';
 
 const SuperLanding = () => {
   const steps = [
@@ -47,17 +48,21 @@ const SuperLanding = () => {
       
       {/* Hero Section */}
       <section className="relative pt-8 pb-12 sm:pt-16 sm:pb-20 overflow-hidden">
-        <div className="absolute inset-0 bg-gradient-to-r from-green-600/10 to-blue-600/10"></div>
+        <div 
+          className="absolute inset-0 bg-cover bg-center bg-no-repeat"
+          style={{ backgroundImage: `url(${stadiumBanner})` }}
+        ></div>
+        <div className="absolute inset-0 bg-gradient-to-r from-black/70 to-black/50"></div>
         
         <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center">
-            <h1 className="text-3xl sm:text-4xl md:text-6xl font-bold text-gray-900 mb-4 sm:mb-6">
-              <span className="bg-gradient-to-r from-green-600 to-blue-600 bg-clip-text text-transparent">
+            <h1 className="text-3xl sm:text-4xl md:text-6xl font-bold text-white mb-4 sm:mb-6 drop-shadow-lg">
+              <span className="bg-gradient-to-r from-yellow-400 to-yellow-500 bg-clip-text text-transparent">
                 Joga Bola, Jogador
               </span>
             </h1>
             
-            <p className="text-lg sm:text-xl text-gray-600 mb-6 sm:mb-8 max-w-3xl mx-auto px-4">
+            <p className="text-lg sm:text-xl text-white mb-6 sm:mb-8 max-w-3xl mx-auto px-4 drop-shadow-md">
               A única plataforma do futebol brasileiro que conecta jogadores de todo o país com os maiores clubes e empresários do mercado.
             </p>
 
