@@ -81,16 +81,13 @@ const Landing = () => {
           </div>
           
           <h1 className="text-5xl md:text-7xl font-bold text-white mb-6 leading-tight">
-            Conectando
             <span className="block bg-gradient-to-r from-yellow-300 to-yellow-500 bg-clip-text text-transparent">
-              Talentos
+              Joga Bola, Jogador
             </span>
-            do Futebol Brasileiro
           </h1>
           
           <p className="text-xl md:text-2xl text-white/90 mb-12 max-w-4xl mx-auto leading-relaxed">
-            A maior plataforma do Brasil para descobrir, conectar e desenvolver 
-            talentos do futebol. Seu sonho está a um clique de distância.
+            A única plataforma do futebol brasileiro que conecta jogadores de todo o país com os maiores clubes e empresários do mercado.
           </p>
           
           <div className="flex flex-col sm:flex-row gap-6 justify-center mb-16">

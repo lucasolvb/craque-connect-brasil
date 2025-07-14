@@ -24,7 +24,8 @@ const AppRoutes = () => {
   return (
     <div className="min-h-screen bg-gray-50">
       <Routes>
-        <Route path="/" element={<SuperLanding />} />
+        <Route path="/institucional" element={<SuperLanding />} />
+        <Route path="/" element={<Navigate to="/institucional" />} />
         <Route path="/super-login" element={<SuperAuth />} />
         <Route path="/super-registro" element={<SuperAuth />} />
         <Route path="/auth/:mode" element={<SuperAuth />} />
