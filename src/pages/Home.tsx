@@ -1,28 +1,32 @@
 import React, { useState, useEffect } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
+import { 
+  Search, 
+  SlidersHorizontal, 
+  Star, 
+  CheckCircle, 
+  Eye, 
+  Heart,
+  Calendar,
+  MapPin,
+  Ruler,
+  Weight
+} from 'lucide-react';
 import { Card, CardContent } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
-import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { Badge } from '@/components/ui/badge';
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
-import { Checkbox } from '@/components/ui/checkbox';
-import { Slider } from '@/components/ui/slider';
-import { Label } from '@/components/ui/label';
+import { Avatar, AvatarImage, AvatarFallback } from '@/components/ui/avatar';
 import { 
-  Search, 
-  MapPin, 
-  Calendar, 
-  Ruler, 
-  Weight, 
-  Star, 
-  CheckCircle, 
-  Filter,
-  SlidersHorizontal,
-  Heart,
-  MessageCircle,
-  Eye
-} from 'lucide-react';
+  Select, 
+  SelectContent, 
+  SelectItem, 
+  SelectTrigger, 
+  SelectValue 
+} from '@/components/ui/select';
+import { Label } from '@/components/ui/label';
+import { Slider } from '@/components/ui/slider';
+import { Checkbox } from '@/components/ui/checkbox';
 import { toast } from 'sonner';
 
 interface Player {
@@ -31,9 +35,10 @@ interface Player {
   idade: number;
   posicao: string;
   cidade: string;
+  estado: string;
   altura: string;
   peso: string;
-  pernaPreferida: string;
+  peDominante: string;
   habilidades: string[];
   verificado: boolean;
   avatar?: string;
@@ -50,10 +55,11 @@ const allPlayers: Player[] = [
     nome: 'Gabriel Silva',
     idade: 19,
     posicao: 'Atacante',
-    cidade: 'São Paulo, SP',
-    altura: '1.78m',
-    peso: '72kg',
-    pernaPreferida: 'Direita',
+    cidade: 'São Paulo',
+    estado: 'SP',
+    altura: '178',
+    peso: '72',
+    peDominante: 'Direita',
     habilidades: ['Velocidade', 'Finalização', 'Drible'],
     verificado: true,
     avaliacaoMedia: 4.8,
@@ -66,10 +72,11 @@ const allPlayers: Player[] = [
     nome: 'Lucas Oliveira',
     idade: 20,
     posicao: 'Meio-campo',
-    cidade: 'Rio de Janeiro, RJ',
-    altura: '1.75m',
-    peso: '68kg',
-    pernaPreferida: 'Esquerda',
+    cidade: 'Rio de Janeiro',
+    estado: 'RJ',
+    altura: '175',
+    peso: '68',
+    peDominante: 'Esquerda',
     habilidades: ['Passe', 'Visão de Jogo', 'Resistência'],
     verificado: true,
     avaliacaoMedia: 4.6,
@@ -82,10 +89,11 @@ const allPlayers: Player[] = [
     nome: 'Rafael Santos',
     idade: 18,
     posicao: 'Zagueiro',
-    cidade: 'Belo Horizonte, MG',
-    altura: '1.85m',
-    peso: '78kg',
-    pernaPreferida: 'Direita',
+    cidade: 'Belo Horizonte',
+    estado: 'MG',
+    altura: '185',
+    peso: '78',
+    peDominante: 'Direita',
     habilidades: ['Força', 'Marcação', 'Jogo Aéreo'],
     verificado: false,
     avaliacaoMedia: 4.4,
@@ -98,10 +106,11 @@ const allPlayers: Player[] = [
     nome: 'João Costa',
     idade: 21,
     posicao: 'Lateral',
-    cidade: 'Porto Alegre, RS',
-    altura: '1.72m',
-    peso: '65kg',
-    pernaPreferida: 'Esquerda',
+    cidade: 'Porto Alegre',
+    estado: 'RS',
+    altura: '172',
+    peso: '65',
+    peDominante: 'Esquerda',
     habilidades: ['Velocidade', 'Cruzamento', 'Resistência'],
     verificado: true,
     avaliacaoMedia: 4.5,
@@ -114,10 +123,11 @@ const allPlayers: Player[] = [
     nome: 'Pedro Almeida',
     idade: 19,
     posicao: 'Meio-campo',
-    cidade: 'Salvador, BA',
-    altura: '1.76m',
-    peso: '70kg',
-    pernaPreferida: 'Direita',
+    cidade: 'Salvador',
+    estado: 'BA',
+    altura: '176',
+    peso: '70',
+    peDominante: 'Direita',
     habilidades: ['Drible', 'Criatividade', 'Passe'],
     verificado: true,
     avaliacaoMedia: 4.7,
@@ -130,10 +140,11 @@ const allPlayers: Player[] = [
     nome: 'Miguel Torres',
     idade: 20,
     posicao: 'Atacante',
-    cidade: 'Fortaleza, CE',
-    altura: '1.80m',
-    peso: '75kg',
-    pernaPreferida: 'Esquerda',
+    cidade: 'Fortaleza',
+    estado: 'CE',
+    altura: '180',
+    peso: '75',
+    peDominante: 'Esquerda',
     habilidades: ['Velocidade', 'Finalização', 'Força'],
     verificado: true,
     avaliacaoMedia: 4.9,
@@ -146,10 +157,11 @@ const allPlayers: Player[] = [
     nome: 'Felipe Rodrigues',
     idade: 18,
     posicao: 'Zagueiro',
-    cidade: 'Recife, PE',
-    altura: '1.88m',
-    peso: '82kg',
-    pernaPreferida: 'Direita',
+    cidade: 'Recife',
+    estado: 'PE',
+    altura: '188',
+    peso: '82',
+    peDominante: 'Direita',
     habilidades: ['Jogo Aéreo', 'Marcação', 'Força'],
     verificado: false,
     avaliacaoMedia: 4.3,
@@ -162,10 +174,11 @@ const allPlayers: Player[] = [
     nome: 'Bruno Mendes',
     idade: 22,
     posicao: 'Goleiro',
-    cidade: 'Curitiba, PR',
-    altura: '1.89m',
-    peso: '85kg',
-    pernaPreferida: 'Direita',
+    cidade: 'Curitiba',
+    estado: 'PR',
+    altura: '189',
+    peso: '85',
+    peDominante: 'Direita',
     habilidades: ['Reflexos', 'Jogo com os Pés', 'Comando'],
     verificado: true,
     avaliacaoMedia: 4.6,
@@ -184,6 +197,10 @@ const Home = () => {
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedPosition, setSelectedPosition] = useState<string>('');
   const [selectedCity, setSelectedCity] = useState<string>('');
+  const [selectedState, setSelectedState] = useState<string>('');
+  const [selectedFootedness, setSelectedFootedness] = useState<string>('');
+  const [heightRange, setHeightRange] = useState<number[]>([160, 200]);
+  const [weightRange, setWeightRange] = useState<number[]>([50, 100]);
   const [ageRange, setAgeRange] = useState<number[]>([16, 25]);
   const [onlyVerified, setOnlyVerified] = useState(false);
   const [selectedSkills, setSelectedSkills] = useState<string[]>([]);
@@ -202,6 +219,8 @@ const Home = () => {
   // Opções para filtros
   const positions = ['Goleiro', 'Zagueiro', 'Lateral', 'Meio-campo', 'Atacante'];
   const cities = [...new Set(allPlayers.map(p => p.cidade))];
+  const states = [...new Set(allPlayers.map(p => p.estado))];
+  const footedness = ['Direita', 'Esquerda', 'Ambas'];
   const allSkills = [...new Set(allPlayers.flatMap(p => p.habilidades))];
 
   const applySearch = (query: string) => {
@@ -244,6 +263,28 @@ const Home = () => {
       filtered = filtered.filter(player => player.cidade === selectedCity);
     }
 
+    // Filtro de estado
+    if (selectedState && selectedState !== 'all') {
+      filtered = filtered.filter(player => player.estado === selectedState);
+    }
+
+    // Filtro de perna dominante
+    if (selectedFootedness && selectedFootedness !== 'all') {
+      filtered = filtered.filter(player => player.peDominante === selectedFootedness);
+    }
+
+    // Filtro de altura
+    filtered = filtered.filter(player => {
+      const height = parseInt(player.altura);
+      return height >= heightRange[0] && height <= heightRange[1];
+    });
+
+    // Filtro de peso
+    filtered = filtered.filter(player => {
+      const weight = parseInt(player.peso);
+      return weight >= weightRange[0] && weight <= weightRange[1];
+    });
+
     // Filtro de idade
     filtered = filtered.filter(player => 
       player.idade >= ageRange[0] && player.idade <= ageRange[1]
@@ -266,19 +307,15 @@ const Home = () => {
 
   useEffect(() => {
     applyFilters();
-  }, [searchQuery, selectedPosition, selectedCity, ageRange, onlyVerified, selectedSkills]);
-
-  const handleSkillToggle = (skill: string) => {
-    setSelectedSkills(prev => 
-      prev.includes(skill) 
-        ? prev.filter(s => s !== skill)
-        : [...prev, skill]
-    );
-  };
+  }, [searchQuery, selectedPosition, selectedCity, selectedState, selectedFootedness, heightRange, weightRange, ageRange, onlyVerified, selectedSkills]);
 
   const clearFilters = () => {
     setSelectedPosition('');
     setSelectedCity('');
+    setSelectedState('');
+    setSelectedFootedness('');
+    setHeightRange([160, 200]);
+    setWeightRange([50, 100]);
     setAgeRange([16, 25]);
     setOnlyVerified(false);
     setSelectedSkills([]);
@@ -287,10 +324,6 @@ const Home = () => {
 
   const handlePlayerView = (playerId: string) => {
     toast.success('Perfil visualizado!');
-  };
-
-  const handlePlayerContact = (playerId: string) => {
-    toast.success('Mensagem enviada para o jogador!');
   };
 
   const handlePlayerFavorite = (playerId: string) => {
@@ -303,7 +336,7 @@ const Home = () => {
         {/* Header */}
         <div className="mb-6">
           <h1 className="text-2xl md:text-3xl font-bold text-gray-900 mb-2">
-            Marketplace de Jogadores
+            Talentos do Futebol
           </h1>
           <p className="text-gray-600">
             Encontre os melhores talentos do futebol brasileiro
@@ -333,18 +366,23 @@ const Home = () => {
           </div>
         </div>
 
-        <div className="flex gap-6">
-          {/* Sidebar Filters */}
-          <div className={`${showFilters ? 'block' : 'hidden'} lg:block w-full lg:w-80 space-y-6`}>
+        {showFilters ? (
+          /* Tela de Filtros */
+          <div className="w-full space-y-6">
             <Card className="p-6">
               <div className="flex items-center justify-between mb-4">
                 <h3 className="font-semibold text-gray-900">Filtros</h3>
-                <Button variant="ghost" size="sm" onClick={clearFilters}>
-                  Limpar
-                </Button>
+                <div className="flex gap-2">
+                  <Button variant="ghost" size="sm" onClick={clearFilters}>
+                    Limpar
+                  </Button>
+                  <Button variant="outline" size="sm" onClick={() => setShowFilters(false)}>
+                    Aplicar Filtros
+                  </Button>
+                </div>
               </div>
 
-              <div className="space-y-6">
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                 {/* Posição */}
                 <div>
                   <Label className="text-sm font-medium text-gray-700 mb-2 block">
@@ -385,6 +423,46 @@ const Home = () => {
                   </Select>
                 </div>
 
+                {/* Estado */}
+                <div>
+                  <Label className="text-sm font-medium text-gray-700 mb-2 block">
+                    Estado
+                  </Label>
+                  <Select value={selectedState} onValueChange={setSelectedState}>
+                    <SelectTrigger>
+                      <SelectValue placeholder="Todos os estados" />
+                    </SelectTrigger>
+                    <SelectContent>
+                      <SelectItem value="all">Todos os estados</SelectItem>
+                      {states.map(state => (
+                        <SelectItem key={state} value={state}>
+                          {state}
+                        </SelectItem>
+                      ))}
+                    </SelectContent>
+                  </Select>
+                </div>
+
+                {/* Perna Dominante */}
+                <div>
+                  <Label className="text-sm font-medium text-gray-700 mb-2 block">
+                    Perna Dominante
+                  </Label>
+                  <Select value={selectedFootedness} onValueChange={setSelectedFootedness}>
+                    <SelectTrigger>
+                      <SelectValue placeholder="Todas" />
+                    </SelectTrigger>
+                    <SelectContent>
+                      <SelectItem value="all">Todas</SelectItem>
+                      {footedness.map(foot => (
+                        <SelectItem key={foot} value={foot}>
+                          {foot}
+                        </SelectItem>
+                      ))}
+                    </SelectContent>
+                  </Select>
+                </div>
+
                 {/* Idade */}
                 <div>
                   <Label className="text-sm font-medium text-gray-700 mb-3 block">
@@ -393,211 +471,335 @@ const Home = () => {
                   <Slider
                     value={ageRange}
                     onValueChange={setAgeRange}
-                    max={30}
+                    max={35}
                     min={16}
                     step={1}
                     className="w-full"
                   />
                 </div>
 
-                {/* Verificação */}
+                {/* Altura */}
+                <div>
+                  <Label className="text-sm font-medium text-gray-700 mb-3 block">
+                    Altura: {heightRange[0]}cm - {heightRange[1]}cm
+                  </Label>
+                  <Slider
+                    value={heightRange}
+                    onValueChange={setHeightRange}
+                    max={220}
+                    min={150}
+                    step={1}
+                    className="w-full"
+                  />
+                </div>
+
+                {/* Peso */}
+                <div>
+                  <Label className="text-sm font-medium text-gray-700 mb-3 block">
+                    Peso: {weightRange[0]}kg - {weightRange[1]}kg
+                  </Label>
+                  <Slider
+                    value={weightRange}
+                    onValueChange={setWeightRange}
+                    max={120}
+                    min={40}
+                    step={1}
+                    className="w-full"
+                  />
+                </div>
+
+                {/* Jogador Verificado */}
                 <div className="flex items-center space-x-2">
                   <Checkbox
                     id="verified"
                     checked={onlyVerified}
                     onCheckedChange={(checked) => setOnlyVerified(checked === true)}
                   />
-                  <Label htmlFor="verified" className="text-sm text-gray-700">
+                  <Label htmlFor="verified" className="text-sm font-medium text-gray-700">
                     Apenas jogadores verificados
                   </Label>
                 </div>
 
                 {/* Habilidades */}
-                <div>
-                  <Label className="text-sm font-medium text-gray-700 mb-3 block">
+                <div className="col-span-full">
+                  <Label className="text-sm font-medium text-gray-700 mb-2 block">
                     Habilidades
                   </Label>
-                  <div className="space-y-2 max-h-40 overflow-y-auto">
+                  <div className="flex flex-wrap gap-2">
                     {allSkills.map(skill => (
-                      <div key={skill} className="flex items-center space-x-2">
-                        <Checkbox
-                          id={skill}
-                          checked={selectedSkills.includes(skill)}
-                          onCheckedChange={() => handleSkillToggle(skill)}
-                        />
-                        <Label htmlFor={skill} className="text-sm text-gray-700">
-                          {skill}
-                        </Label>
-                      </div>
+                      <Button
+                        key={skill}
+                        variant={selectedSkills.includes(skill) ? "default" : "outline"}
+                        size="sm"
+                        onClick={() => {
+                          setSelectedSkills(prev => 
+                            prev.includes(skill) 
+                              ? prev.filter(s => s !== skill)
+                              : [...prev, skill]
+                          );
+                        }}
+                      >
+                        {skill}
+                      </Button>
                     ))}
                   </div>
                 </div>
               </div>
             </Card>
           </div>
+        ) : (
+          /* Tela de Jogadores */
+          <div className="flex gap-6">
+            {/* Sidebar Filters - Desktop */}
+            <div className="hidden lg:block w-80 space-y-6">
+              <Card className="p-6">
+                <div className="flex items-center justify-between mb-4">
+                  <h3 className="font-semibold text-gray-900">Filtros</h3>
+                  <Button variant="ghost" size="sm" onClick={clearFilters}>
+                    Limpar
+                  </Button>
+                </div>
 
-          {/* Main Content */}
-          <div className="flex-1">
-            {/* Results Header */}
-            <div className="flex items-center justify-between mb-6">
-              <div>
-                <h2 className="text-lg font-semibold text-gray-900">
-                  {filteredPlayers.length} jogador{filteredPlayers.length !== 1 ? 'es' : ''} encontrado{filteredPlayers.length !== 1 ? 's' : ''}
-                </h2>
-                {searchQuery && (
-                  <p className="text-sm text-gray-600">
-                    Resultados para: "{searchQuery}"
-                  </p>
-                )}
-              </div>
-              
-              <Select defaultValue="rating">
-                <SelectTrigger className="w-48">
-                  <SelectValue />
-                </SelectTrigger>
-                <SelectContent>
-                  <SelectItem value="rating">Maior avaliação</SelectItem>
-                  <SelectItem value="age-asc">Mais jovem</SelectItem>
-                  <SelectItem value="age-desc">Mais experiente</SelectItem>
-                  <SelectItem value="games">Mais jogos</SelectItem>
-                </SelectContent>
-              </Select>
+                <div className="space-y-6">
+                  {/* Posição */}
+                  <div>
+                    <Label className="text-sm font-medium text-gray-700 mb-2 block">
+                      Posição
+                    </Label>
+                    <Select value={selectedPosition} onValueChange={setSelectedPosition}>
+                      <SelectTrigger>
+                        <SelectValue placeholder="Todas as posições" />
+                      </SelectTrigger>
+                      <SelectContent>
+                        <SelectItem value="all">Todas as posições</SelectItem>
+                        {positions.map(position => (
+                          <SelectItem key={position} value={position}>
+                            {position}
+                          </SelectItem>
+                        ))}
+                      </SelectContent>
+                    </Select>
+                  </div>
+
+                  {/* Cidade */}
+                  <div>
+                    <Label className="text-sm font-medium text-gray-700 mb-2 block">
+                      Cidade
+                    </Label>
+                    <Select value={selectedCity} onValueChange={setSelectedCity}>
+                      <SelectTrigger>
+                        <SelectValue placeholder="Todas as cidades" />
+                      </SelectTrigger>
+                      <SelectContent>
+                        <SelectItem value="all">Todas as cidades</SelectItem>
+                        {cities.map(city => (
+                          <SelectItem key={city} value={city}>
+                            {city}
+                          </SelectItem>
+                        ))}
+                      </SelectContent>
+                    </Select>
+                  </div>
+
+                  {/* Idade */}
+                  <div>
+                    <Label className="text-sm font-medium text-gray-700 mb-3 block">
+                      Idade: {ageRange[0]} - {ageRange[1]} anos
+                    </Label>
+                    <Slider
+                      value={ageRange}
+                      onValueChange={setAgeRange}
+                      max={30}
+                      min={16}
+                      step={1}
+                      className="w-full"
+                    />
+                  </div>
+
+                  {/* Verificação */}
+                  <div className="flex items-center space-x-2">
+                    <Checkbox
+                      id="verified-sidebar"
+                      checked={onlyVerified}
+                      onCheckedChange={(checked) => setOnlyVerified(checked === true)}
+                    />
+                    <Label htmlFor="verified-sidebar" className="text-sm font-medium text-gray-700">
+                      Apenas verificados
+                    </Label>
+                  </div>
+
+                  {/* Habilidades */}
+                  <div>
+                    <Label className="text-sm font-medium text-gray-700 mb-3 block">
+                      Habilidades
+                    </Label>
+                    <div className="flex flex-wrap gap-2">
+                      {allSkills.slice(0, 6).map(skill => (
+                        <Button
+                          key={skill}
+                          variant={selectedSkills.includes(skill) ? "default" : "outline"}
+                          size="sm"
+                          onClick={() => {
+                            setSelectedSkills(prev => 
+                              prev.includes(skill) 
+                                ? prev.filter(s => s !== skill)
+                                : [...prev, skill]
+                            );
+                          }}
+                        >
+                          {skill}
+                        </Button>
+                      ))}
+                    </div>
+                  </div>
+                </div>
+              </Card>
             </div>
 
-            {/* Players Grid */}
-            {filteredPlayers.length === 0 ? (
-              <Card className="p-12 text-center">
-                <Search className="h-16 w-16 text-gray-300 mx-auto mb-4" />
-                <h3 className="text-xl font-medium text-gray-900 mb-2">
-                  Nenhum jogador encontrado
-                </h3>
-                <p className="text-gray-600">
-                  Tente ajustar os filtros ou refinar sua busca
-                </p>
-              </Card>
-            ) : (
-              <div className="grid gap-6 md:grid-cols-2 xl:grid-cols-3">
-                {filteredPlayers.map((player) => (
-                  <Card key={player.id} className="hover:shadow-lg transition-all duration-300 group">
-                    <CardContent className="p-6">
-                      <div className="flex items-start gap-4 mb-4">
-                        <Avatar className="h-16 w-16">
-                          <AvatarImage src={player.avatar} alt={player.nome} />
-                          <AvatarFallback className="bg-green-100 text-green-700 text-lg font-semibold">
-                            {player.nome.split(' ').map(n => n[0]).join('')}
-                          </AvatarFallback>
-                        </Avatar>
-                        
-                        <div className="flex-1 min-w-0">
-                          <div className="flex items-center gap-2 mb-1">
-                            <h3 className="font-semibold text-gray-900 truncate">
+            {/* Main Content */}
+            <div className="flex-1">
+              <div className="flex items-center justify-between mb-6">
+                <div className="flex items-center gap-4">
+                  {filteredPlayers.length > 0 && (
+                    <p className="text-sm text-gray-600">
+                      {filteredPlayers.length} jogador{filteredPlayers.length !== 1 ? 'es' : ''} encontrado{filteredPlayers.length !== 1 ? 's' : ''}
+                    </p>
+                  )}
+                </div>
+                
+                <Select defaultValue="rating">
+                  <SelectTrigger className="w-48">
+                    <SelectValue />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="rating">Maior avaliação</SelectItem>
+                    <SelectItem value="age-asc">Mais jovem</SelectItem>
+                    <SelectItem value="age-desc">Mais experiente</SelectItem>
+                  </SelectContent>
+                </Select>
+              </div>
+
+              {/* Players Grid */}
+              {filteredPlayers.length === 0 ? (
+                <Card className="p-12 text-center">
+                  <Search className="h-16 w-16 text-gray-300 mx-auto mb-4" />
+                  <h3 className="text-xl font-medium text-gray-900 mb-2">
+                    Nenhum jogador encontrado
+                  </h3>
+                  <p className="text-gray-600">
+                    Tente ajustar os filtros ou refinar sua busca
+                  </p>
+                </Card>
+              ) : (
+                <div className="grid gap-6 md:grid-cols-2 xl:grid-cols-3">
+                  {filteredPlayers.map((player) => (
+                    <Card key={player.id} className="hover:shadow-lg transition-all duration-300 group overflow-hidden">
+                      <div className="relative">
+                        {/* Player Image - Large at top */}
+                        <div className="h-48 bg-gradient-to-br from-green-500 to-green-700 relative overflow-hidden">
+                          <div className="absolute inset-0 flex items-center justify-center">
+                            <Avatar className="h-32 w-32 border-4 border-white shadow-xl">
+                              <AvatarImage src={player.avatar} alt={player.nome} />
+                              <AvatarFallback className="bg-white text-green-700 text-3xl font-bold">
+                                {player.nome.split(' ').map(n => n[0]).join('')}
+                              </AvatarFallback>
+                            </Avatar>
+                          </div>
+                          {/* Verified Badge */}
+                          {player.verificado && (
+                            <div className="absolute top-3 right-3">
+                              <CheckCircle className="h-6 w-6 text-white bg-green-500 rounded-full" />
+                            </div>
+                          )}
+                          {/* "DESTAQUE" badge */}
+                          <div className="absolute top-3 left-3">
+                            <span className="bg-orange-500 text-white px-2 py-1 text-xs font-bold rounded">
+                              DESTAQUE
+                            </span>
+                          </div>
+                        </div>
+
+                        {/* Player Info */}
+                        <CardContent className="p-4 space-y-3">
+                          {/* Name and Rating */}
+                          <div>
+                            <h3 className="font-bold text-lg text-gray-900 mb-1">
                               {player.nome}
                             </h3>
-                            {player.verificado && (
-                              <CheckCircle className="h-4 w-4 text-green-500 flex-shrink-0" />
-                            )}
-                          </div>
-                          
-                          <div className="flex items-center gap-1 mb-2">
-                            <Star className="h-4 w-4 text-yellow-500 fill-current" />
-                            <span className="text-sm text-gray-600">
-                              {player.avaliacaoMedia.toFixed(1)}
-                            </span>
-                            <span className="text-xs text-gray-400">
-                              ({player.numeroJogos} jogos)
-                            </span>
-                          </div>
-                          
-                          <Badge variant="outline" className="text-xs">
-                            {player.posicao}
-                          </Badge>
-                        </div>
-                      </div>
-
-                      <div className="space-y-3">
-                        <div className="grid grid-cols-2 gap-3 text-sm">
-                          <div className="flex items-center gap-2">
-                            <Calendar className="h-4 w-4 text-gray-400" />
-                            <span className="text-gray-600">{player.idade} anos</span>
-                          </div>
-                          <div className="flex items-center gap-2">
-                            <MapPin className="h-4 w-4 text-gray-400" />
-                            <span className="text-gray-600 truncate">{player.cidade}</span>
-                          </div>
-                          <div className="flex items-center gap-2">
-                            <Ruler className="h-4 w-4 text-gray-400" />
-                            <span className="text-gray-600">{player.altura}</span>
-                          </div>
-                          <div className="flex items-center gap-2">
-                            <Weight className="h-4 w-4 text-gray-400" />
-                            <span className="text-gray-600">{player.peso}</span>
-                          </div>
-                        </div>
-
-                        {/* Stats */}
-                        <div className="grid grid-cols-2 gap-2 py-2 border-t border-gray-100">
-                          <div className="text-center">
-                            <div className="text-lg font-semibold text-green-600">
-                              {player.gols}
+                            <p className="text-sm text-gray-600 mb-2">
+                              {player.posicao} • {player.cidade}, {player.estado}
+                            </p>
+                            
+                            <div className="flex items-center gap-1 mb-2">
+                              <Star className="h-4 w-4 text-yellow-500 fill-current" />
+                              <span className="text-sm font-medium text-gray-900">
+                                {player.avaliacaoMedia.toFixed(1)}
+                              </span>
+                              <span className="text-xs text-gray-500">
+                                ({Math.floor(Math.random() * 500) + 100} avaliações)
+                              </span>
                             </div>
-                            <div className="text-xs text-gray-500">Gols</div>
                           </div>
-                          <div className="text-center">
-                            <div className="text-lg font-semibold text-blue-600">
-                              {player.assistencias}
+
+                          {/* Physical Stats */}
+                          <div className="grid grid-cols-3 gap-2 text-sm border-t pt-3">
+                            <div className="text-center">
+                              <div className="font-semibold text-gray-900">{player.idade}</div>
+                              <div className="text-xs text-gray-500">anos</div>
                             </div>
-                            <div className="text-xs text-gray-500">Assist.</div>
+                            <div className="text-center">
+                              <div className="font-semibold text-gray-900">{player.altura}cm</div>
+                              <div className="text-xs text-gray-500">altura</div>
+                            </div>
+                            <div className="text-center">
+                              <div className="font-semibold text-gray-900">{player.peso}kg</div>
+                              <div className="text-xs text-gray-500">peso</div>
+                            </div>
                           </div>
-                        </div>
 
-                        <div>
-                          <div className="flex flex-wrap gap-1 mb-3">
-                            {player.habilidades.slice(0, 3).map((habilidade, index) => (
-                              <Badge key={index} variant="secondary" className="text-xs">
-                                {habilidade}
-                              </Badge>
-                            ))}
-                            {player.habilidades.length > 3 && (
-                              <Badge variant="secondary" className="text-xs">
-                                +{player.habilidades.length - 3}
-                              </Badge>
-                            )}
+                          {/* Skills */}
+                          <div>
+                            <div className="flex flex-wrap gap-1">
+                              {player.habilidades.slice(0, 3).map((habilidade, index) => (
+                                <Badge key={index} variant="secondary" className="text-xs">
+                                  {habilidade}
+                                </Badge>
+                              ))}
+                              {player.habilidades.length > 3 && (
+                                <Badge variant="secondary" className="text-xs">
+                                  +{player.habilidades.length - 3}
+                                </Badge>
+                              )}
+                            </div>
                           </div>
-                        </div>
 
-                        {/* Action Buttons */}
-                        <div className="flex gap-2 pt-3 border-t">
-                          <Button 
-                            size="sm" 
-                            className="flex-1 bg-green-600 hover:bg-green-700"
-                            onClick={() => handlePlayerView(player.id)}
-                          >
-                            <Eye className="h-4 w-4 mr-1" />
-                            Ver Perfil
-                          </Button>
-                          <Button
-                            size="sm"
-                            variant="outline"
-                            onClick={() => handlePlayerContact(player.id)}
-                          >
-                            <MessageCircle className="h-4 w-4" />
-                          </Button>
-                          <Button
-                            size="sm"
-                            variant="outline"
-                            onClick={() => handlePlayerFavorite(player.id)}
-                          >
-                            <Heart className="h-4 w-4" />
-                          </Button>
-                        </div>
+                          {/* Action Buttons */}
+                          <div className="flex gap-2 pt-3 border-t">
+                            <Button 
+                              size="sm" 
+                              className="flex-1 bg-green-600 hover:bg-green-700"
+                              onClick={() => handlePlayerView(player.id)}
+                            >
+                              <Eye className="h-4 w-4 mr-1" />
+                              Ver Perfil
+                            </Button>
+                            <Button
+                              size="sm"
+                              variant="outline"
+                              onClick={() => handlePlayerFavorite(player.id)}
+                            >
+                              <Heart className="h-4 w-4" />
+                            </Button>
+                          </div>
+                        </CardContent>
                       </div>
-                    </CardContent>
-                  </Card>
-                ))}
-              </div>
-            )}
+                    </Card>
+                  ))}
+                </div>
+              )}
+            </div>
           </div>
-        </div>
+        )}
       </div>
     </div>
   );
