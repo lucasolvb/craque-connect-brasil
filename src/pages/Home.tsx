@@ -199,9 +199,9 @@ const Home = () => {
   const [selectedCity, setSelectedCity] = useState<string>('');
   const [selectedState, setSelectedState] = useState<string>('');
   const [selectedFootedness, setSelectedFootedness] = useState<string>('');
-  const [heightRange, setHeightRange] = useState<number[]>([160, 200]);
-  const [weightRange, setWeightRange] = useState<number[]>([50, 100]);
-  const [ageRange, setAgeRange] = useState<number[]>([16, 25]);
+  const [heightRange, setHeightRange] = useState<number[]>([120, 220]);
+  const [weightRange, setWeightRange] = useState<number[]>([30, 150]);
+  const [ageRange, setAgeRange] = useState<number[]>([6, 30]);
   const [onlyVerified, setOnlyVerified] = useState(false);
   const [selectedSkills, setSelectedSkills] = useState<string[]>([]);
   const [showFilters, setShowFilters] = useState(false);
@@ -218,8 +218,17 @@ const Home = () => {
 
   // Opções para filtros
   const positions = ['Goleiro', 'Zagueiro', 'Lateral', 'Meio-campo', 'Atacante'];
-  const cities = [...new Set(allPlayers.map(p => p.cidade))];
   const states = [...new Set(allPlayers.map(p => p.estado))];
+  
+  // Filtrar cidades baseadas no estado selecionado
+  const getAvailableCities = () => {
+    if (!selectedState || selectedState === 'all') {
+      return [...new Set(allPlayers.map(p => p.cidade))];
+    }
+    return [...new Set(allPlayers.filter(p => p.estado === selectedState).map(p => p.cidade))];
+  };
+  
+  const cities = getAvailableCities();
   const footedness = ['Direita', 'Esquerda', 'Ambas'];
   const allSkills = [...new Set(allPlayers.flatMap(p => p.habilidades))];
 
@@ -305,6 +314,16 @@ const Home = () => {
     setFilteredPlayers(filtered);
   };
 
+  // Limpar cidade quando estado mudar
+  useEffect(() => {
+    if (selectedState && selectedState !== 'all') {
+      const availableCities = allPlayers.filter(p => p.estado === selectedState).map(p => p.cidade);
+      if (selectedCity && !availableCities.includes(selectedCity)) {
+        setSelectedCity('');
+      }
+    }
+  }, [selectedState]);
+
   useEffect(() => {
     applyFilters();
   }, [searchQuery, selectedPosition, selectedCity, selectedState, selectedFootedness, heightRange, weightRange, ageRange, onlyVerified, selectedSkills]);
@@ -314,9 +333,9 @@ const Home = () => {
     setSelectedCity('');
     setSelectedState('');
     setSelectedFootedness('');
-    setHeightRange([160, 200]);
-    setWeightRange([50, 100]);
-    setAgeRange([16, 25]);
+    setHeightRange([120, 220]);
+    setWeightRange([30, 150]);
+    setAgeRange([6, 30]);
     setOnlyVerified(false);
     setSelectedSkills([]);
     setSearchQuery('');
@@ -403,26 +422,6 @@ const Home = () => {
                   </Select>
                 </div>
 
-                {/* Cidade */}
-                <div>
-                  <Label className="text-sm font-medium text-gray-700 mb-2 block">
-                    Cidade
-                  </Label>
-                  <Select value={selectedCity} onValueChange={setSelectedCity}>
-                    <SelectTrigger>
-                      <SelectValue placeholder="Todas as cidades" />
-                    </SelectTrigger>
-                    <SelectContent>
-                      <SelectItem value="all">Todas as cidades</SelectItem>
-                      {cities.map(city => (
-                        <SelectItem key={city} value={city}>
-                          {city}
-                        </SelectItem>
-                      ))}
-                    </SelectContent>
-                  </Select>
-                </div>
-
                 {/* Estado */}
                 <div>
                   <Label className="text-sm font-medium text-gray-700 mb-2 block">
@@ -443,6 +442,26 @@ const Home = () => {
                   </Select>
                 </div>
 
+                {/* Cidade */}
+                <div>
+                  <Label className="text-sm font-medium text-gray-700 mb-2 block">
+                    Cidade
+                  </Label>
+                  <Select value={selectedCity} onValueChange={setSelectedCity}>
+                    <SelectTrigger>
+                      <SelectValue placeholder="Todas as cidades" />
+                    </SelectTrigger>
+                    <SelectContent>
+                      <SelectItem value="all">Todas as cidades</SelectItem>
+                      {cities.map(city => (
+                        <SelectItem key={city} value={city}>
+                          {city}
+                        </SelectItem>
+                      ))}
+                    </SelectContent>
+                  </Select>
+                </div>
+
                 {/* Perna Dominante */}
                 <div>
                   <Label className="text-sm font-medium text-gray-700 mb-2 block">
@@ -450,10 +469,9 @@ const Home = () => {
                   </Label>
                   <Select value={selectedFootedness} onValueChange={setSelectedFootedness}>
                     <SelectTrigger>
-                      <SelectValue placeholder="Todas" />
+                      <SelectValue placeholder="Selecione a perna dominante" />
                     </SelectTrigger>
                     <SelectContent>
-                      <SelectItem value="all">Todas</SelectItem>
                       {footedness.map(foot => (
                         <SelectItem key={foot} value={foot}>
                           {foot}
@@ -465,47 +483,62 @@ const Home = () => {
 
                 {/* Idade */}
                 <div>
-                  <Label className="text-sm font-medium text-gray-700 mb-3 block">
+                  <Label className="text-sm font-medium text-gray-700 mb-3 flex items-center gap-2">
+                    <Calendar className="h-4 w-4" />
                     Idade: {ageRange[0]} - {ageRange[1]} anos
                   </Label>
                   <Slider
                     value={ageRange}
                     onValueChange={setAgeRange}
-                    max={35}
-                    min={16}
+                    max={30}
+                    min={6}
                     step={1}
                     className="w-full"
                   />
+                  <div className="flex justify-between text-xs text-gray-500 mt-1">
+                    <span>6 anos</span>
+                    <span>30 anos</span>
+                  </div>
                 </div>
 
                 {/* Altura */}
                 <div>
-                  <Label className="text-sm font-medium text-gray-700 mb-3 block">
+                  <Label className="text-sm font-medium text-gray-700 mb-3 flex items-center gap-2">
+                    <Ruler className="h-4 w-4" />
                     Altura: {heightRange[0]}cm - {heightRange[1]}cm
                   </Label>
                   <Slider
                     value={heightRange}
                     onValueChange={setHeightRange}
                     max={220}
-                    min={150}
+                    min={120}
                     step={1}
                     className="w-full"
                   />
+                  <div className="flex justify-between text-xs text-gray-500 mt-1">
+                    <span>1,20m</span>
+                    <span>2,20m</span>
+                  </div>
                 </div>
 
                 {/* Peso */}
                 <div>
-                  <Label className="text-sm font-medium text-gray-700 mb-3 block">
+                  <Label className="text-sm font-medium text-gray-700 mb-3 flex items-center gap-2">
+                    <Weight className="h-4 w-4" />
                     Peso: {weightRange[0]}kg - {weightRange[1]}kg
                   </Label>
                   <Slider
                     value={weightRange}
                     onValueChange={setWeightRange}
-                    max={120}
-                    min={40}
+                    max={150}
+                    min={30}
                     step={1}
                     className="w-full"
                   />
+                  <div className="flex justify-between text-xs text-gray-500 mt-1">
+                    <span>30kg</span>
+                    <span>150kg</span>
+                  </div>
                 </div>
 
                 {/* Jogador Verificado */}
@@ -601,19 +634,123 @@ const Home = () => {
                     </Select>
                   </div>
 
+                  {/* Estado */}
+                  <div>
+                    <Label className="text-sm font-medium text-gray-700 mb-2 block">
+                      Estado
+                    </Label>
+                    <Select value={selectedState} onValueChange={setSelectedState}>
+                      <SelectTrigger>
+                        <SelectValue placeholder="Todos os estados" />
+                      </SelectTrigger>
+                      <SelectContent>
+                        <SelectItem value="all">Todos os estados</SelectItem>
+                        {states.map(state => (
+                          <SelectItem key={state} value={state}>
+                            {state}
+                          </SelectItem>
+                        ))}
+                      </SelectContent>
+                    </Select>
+                  </div>
+
+                  {/* Cidade */}
+                  <div>
+                    <Label className="text-sm font-medium text-gray-700 mb-2 block">
+                      Cidade
+                    </Label>
+                    <Select value={selectedCity} onValueChange={setSelectedCity}>
+                      <SelectTrigger>
+                        <SelectValue placeholder="Todas as cidades" />
+                      </SelectTrigger>
+                      <SelectContent>
+                        <SelectItem value="all">Todas as cidades</SelectItem>
+                        {cities.map(city => (
+                          <SelectItem key={city} value={city}>
+                            {city}
+                          </SelectItem>
+                        ))}
+                      </SelectContent>
+                    </Select>
+                  </div>
+
+                  {/* Perna Dominante */}
+                  <div>
+                    <Label className="text-sm font-medium text-gray-700 mb-2 block">
+                      Perna Dominante
+                    </Label>
+                    <Select value={selectedFootedness} onValueChange={setSelectedFootedness}>
+                      <SelectTrigger>
+                        <SelectValue placeholder="Selecione a perna dominante" />
+                      </SelectTrigger>
+                      <SelectContent>
+                        {footedness.map(foot => (
+                          <SelectItem key={foot} value={foot}>
+                            {foot}
+                          </SelectItem>
+                        ))}
+                      </SelectContent>
+                    </Select>
+                  </div>
+
                   {/* Idade */}
                   <div>
-                    <Label className="text-sm font-medium text-gray-700 mb-3 block">
+                    <Label className="text-sm font-medium text-gray-700 mb-3 flex items-center gap-2">
+                      <Calendar className="h-4 w-4" />
                       Idade: {ageRange[0]} - {ageRange[1]} anos
                     </Label>
                     <Slider
                       value={ageRange}
                       onValueChange={setAgeRange}
                       max={30}
-                      min={16}
+                      min={6}
                       step={1}
                       className="w-full"
                     />
+                    <div className="flex justify-between text-xs text-gray-500 mt-1">
+                      <span>6 anos</span>
+                      <span>30 anos</span>
+                    </div>
+                  </div>
+
+                  {/* Altura */}
+                  <div>
+                    <Label className="text-sm font-medium text-gray-700 mb-3 flex items-center gap-2">
+                      <Ruler className="h-4 w-4" />
+                      Altura: {heightRange[0]}cm - {heightRange[1]}cm
+                    </Label>
+                    <Slider
+                      value={heightRange}
+                      onValueChange={setHeightRange}
+                      max={220}
+                      min={120}
+                      step={1}
+                      className="w-full"
+                    />
+                    <div className="flex justify-between text-xs text-gray-500 mt-1">
+                      <span>1,20m</span>
+                      <span>2,20m</span>
+                    </div>
+                  </div>
+
+                  {/* Peso */}
+                  <div>
+                    <Label className="text-sm font-medium text-gray-700 mb-3 flex items-center gap-2">
+                      <Weight className="h-4 w-4" />
+                      Peso: {weightRange[0]}kg - {weightRange[1]}kg
+                    </Label>
+                    <Slider
+                      value={weightRange}
+                      onValueChange={setWeightRange}
+                      max={150}
+                      min={30}
+                      step={1}
+                      className="w-full"
+                    />
+                    <div className="flex justify-between text-xs text-gray-500 mt-1">
+                      <span>30kg</span>
+                      <span>150kg</span>
+                    </div>
                   </div>
 
                   {/* Verificação */}
