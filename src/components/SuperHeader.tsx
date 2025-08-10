@@ -116,7 +116,7 @@ const SuperHeader = () => {
           ) : (
             <div className="flex items-center space-x-4">
               <Link to="/super-login">
-                <Button variant="outline" className="border-white text-white hover:bg-white hover:text-green-600">Login</Button>
+                <Button variant="outline" className="border-green-600 text-green-600 hover:bg-green-600 hover:text-white">Login</Button>
               </Link>
               <Link to="/super-registro">
                 <Button className="bg-white text-green-600 hover:bg-gray-100">Criar Conta</Button>
