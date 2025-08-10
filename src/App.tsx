@@ -15,6 +15,7 @@ import SuperOnboarding from "@/pages/SuperOnboarding";
 import Perfil from "@/pages/Perfil";
 import Clubes from "@/pages/Clubes";
 import Home from "@/pages/Home";
+import Index from "@/pages/Index";
 import NotFound from "@/pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -24,6 +25,7 @@ const AppRoutes = () => {
   return (
     <div className="min-h-screen bg-gray-50">
       <Routes>
+        <Route path="/" element={<Index />} />
         <Route path="/institucional" element={<SuperLanding />} />
         <Route path="/super-login" element={<SuperAuth />} />
         <Route path="/super-registro" element={<SuperAuth />} />
